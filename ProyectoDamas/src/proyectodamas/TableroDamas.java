@@ -16,7 +16,8 @@ public class TableroDamas extends Canvas  {
 		// clicks and for clicks on the buttons. Create the board and
 		// start the first game.
 		setBackground(Color.blue);
+                System.out.println("RODRIGUEZ MANDA");
 		
 	}
-		
+	   	
 }
