@@ -9,13 +9,8 @@ package proyectodamas;
  *
  * @author VELOCI
  */
-public class ProyectoDamas {
+public class Damas {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        
-    }
+    
     
 }
