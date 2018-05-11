@@ -11,8 +11,15 @@ import javax.swing.JPanel;
 import javax.swing.JFrame;
 
 public class TableroDamas extends Canvas  {
+    //SE DECLARAN LOS BOTONES NUEVO Y ABANDONA 
+    Button botonNuevo;
+    Button botonAbandona;
+    //SE CREA UNA ETIQUETA PARA MOSTRAR MENSAJES
+    Label mensaje;
+    
     public TableroDamas() {
-		// Constructor. Create the buttons and lable. Listen for mouse
+		
+// Constructor. Create the buttons and lable. Listen for mouse
 		// clicks and for clicks on the buttons. Create the board and
 		// start the first game.
 		setBackground(Color.blue);
