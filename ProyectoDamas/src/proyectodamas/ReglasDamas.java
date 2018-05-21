@@ -5,6 +5,8 @@
  */
 package proyectodamas;
 
+import java.util.Vector;
+
 /**
  *
  * @author VELOCI
@@ -55,23 +57,20 @@ public class ReglasDamas  {
 		tablero[row][col] = piece;
 	}
     public void hacerMovimiento(MovimientoDamas mover) {
-		// Make the specified move. It is assumed that move
-		// is non-null and that the move it represents is legal.
+		/*Realiza el movimiento(no sabe si es nulo e ilegal)*/
 		hacerMovimiento(mover.de_Fila, mover.de_Columna, mover.a_Fila, mover.a_Columna);
 	}
 
 	public void hacerMovimiento(int de_Fila, int de_Columna, int a_Fila, int a_Columna) {
-		// Make the move from (fromRow,fromCol) to (toRow,toCol). It is
-		// assumed that this move is legal. If the move is a jump, the
-		// jumped piece is removed from the board. If a piece moves
-		// the last row on the opponent's side of the board, the
-		// piece becomes a king.
+		/* Hace el movimiento desde un lugar hacia otro. 
+                 Si hay salto la pieza saltada es comida y removida.Si se llega 
+            al final del lado del oponente esa pieza se convierte en REY.*/
 		tablero[a_Fila][a_Columna] = tablero[de_Fila][a_Columna];
 		tablero[de_Fila][de_Columna] = esp_vacio;
 		if (de_Fila - a_Fila == 2 || de_Fila - a_Fila == -2) {
-			// The move is a jump. Remove the jumped piece from the board.
-			int saltoFila = (de_Fila + a_Fila) / 2; // Row of the jumped piece.
-			int saltoColumna = (de_Columna + a_Columna) / 2; // Column of the jumped piece.
+			// Esto es un salto. Por lo tanto la pieza saltada es comida.
+			int saltoFila = (de_Fila + a_Fila) / 2; // Se calcula la fila de la pieza que se salta.
+			int saltoColumna = (de_Columna + a_Columna) / 2; // Se calcula la columna de la pieza que se salta.
 			tablero[saltoFila][saltoColumna] = esp_vacio;
 		}
 		if (a_Fila == 0 && tablero[a_Fila][a_Columna] == rojo)
@@ -79,5 +78,100 @@ public class ReglasDamas  {
 		if (a_Fila == 7 && tablero[a_Fila][a_Columna] == negro)
 			tablero[a_Fila][a_Columna] = rey_negro;
 	}
+        
+        public MovimientoDamas[] getMovimientosLegales(int jugador) {
+		/* Se devuelve un array con los movimiento legales para el jugador.
+                  Si el jugador no tiene movimiento se devuelve null.El valor del
+                  corresponde a una de las constantes "rojo" o "negro".Si no se devuelve
+                  un nulo significa que hay saltos o movimiento regulares.*/
+
+		if (jugador != rojo && jugador != negro)
+			return null;
+
+		int jugadorRey; // .
+		if (jugador == rojo)
+			jugadorRey = rey_rojo;
+		else
+			jugadorRey = rey_negro;
+
+		Vector movimientos = new Vector(); // los movimiento se guardan en este vector.
+
+		/*
+		 * First, check for any possible jumps. Look at each square on the
+		 * board. If that square contains one of the player's pieces, look at a
+		 * possible jump in each of the four directions from that square. If
+		 * there is a legal jump in that direction, put it in the moves vector.
+		 */
+
+		for (int row = 0; row < 8; row++) {
+			for (int col = 0; col < 8; col++) {
+				if (tablero[row][col] == jugador || tablero[row][col] == jugadorRey) {
+					if (puedeSaltar(jugador, row, col, row + 1, col + 1, row + 2,
+							col + 2))
+						movimientos.addElement(new CheckersMove(row, col, row + 2,
+								col + 2));
+					if (puedeSaltar(jugador, row, col, row - 1, col + 1, row - 2,
+							col + 2))
+						movimientos.addElement(new CheckersMove(row, col, row - 2,
+								col + 2));
+					if (puedeSaltar(jugador, row, col, row + 1, col - 1, row + 2,
+							col - 2))
+						movimientos.addElement(new CheckersMove(row, col, row + 2,
+								col - 2));
+					if (puedeSaltar(jugador, row, col, row - 1, col - 1, row - 2,
+							col - 2))
+						movimientos.addElement(new CheckersMove(row, col, row - 2,
+								col - 2));
+				}
+			}
+		}
+
+		/*
+		 * If any jump moves were found, then the user must jump, so we don't
+		 * add any regular moves. However, if no jumps were found, check for any
+		 * legal regualar moves. Look at each square on the board. If that
+		 * square contains one of the player's pieces, look at a possible move
+		 * in each of the four directions from that square. If there is a legal
+		 * move in that direction, put it in the moves vector.
+		 */
+
+		if (movimientos.size() == 0) {
+			for (int row = 0; row < 8; row++) {
+				for (int col = 0; col < 8; col++) {
+					if (board[row][col] == jugador
+							|| board[row][col] == playerKing) {
+						if (canMove(jugador, row, col, row + 1, col + 1))
+							movimientos.addElement(new CheckersMove(row, col,
+									row + 1, col + 1));
+						if (canMove(jugador, row, col, row - 1, col + 1))
+							movimientos.addElement(new CheckersMove(row, col,
+									row - 1, col + 1));
+						if (canMove(jugador, row, col, row + 1, col - 1))
+							movimientos.addElement(new CheckersMove(row, col,
+									row + 1, col - 1));
+						if (canMove(jugador, row, col, row - 1, col - 1))
+							movimientos.addElement(new CheckersMove(row, col,
+									row - 1, col - 1));
+					}
+				}
+			}
+		}
+
+		/*
+		 * If no legal moves have been found, return null. Otherwise, create an
+		 * array just big enough to hold all the legal moves, copy the legal
+		 * moves from the vector into the array, and return the array.
+		 */
+
+		if (movimientos.size() == 0)
+			return null;
+		else {
+			CheckersMove[] moveArray = new CheckersMove[movimientos.size()];
+			for (int i = 0; i < movimientos.size(); i++)
+				moveArray[i] = (CheckersMove) movimientos.elementAt(i);
+			return moveArray;
+		}
+
+	} // end getLegalMoves
     
 }
