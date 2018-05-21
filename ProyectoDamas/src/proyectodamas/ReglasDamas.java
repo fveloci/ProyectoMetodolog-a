@@ -97,81 +97,77 @@ public class ReglasDamas  {
 		Vector movimientos = new Vector(); // los movimiento se guardan en este vector.
 
 		/*
-		 * First, check for any possible jumps. Look at each square on the
-		 * board. If that square contains one of the player's pieces, look at a
-		 * possible jump in each of the four directions from that square. If
-		 * there is a legal jump in that direction, put it in the moves vector.
+		 * Hay que revisar en todo el tablero si hay salto posible. 
+                   Si la posicion contiene una de la piezas del jugador que mueve en ese momento
+                se corrobora si hay algun salto en las cuatro direcciones.Si el movimiento
+                posible es legal, lo podemos colocar en el vector de movimientos.
 		 */
 
-		for (int row = 0; row < 8; row++) {
-			for (int col = 0; col < 8; col++) {
-				if (tablero[row][col] == jugador || tablero[row][col] == jugadorRey) {
-					if (puedeSaltar(jugador, row, col, row + 1, col + 1, row + 2,
-							col + 2))
-						movimientos.addElement(new CheckersMove(row, col, row + 2,
-								col + 2));
-					if (puedeSaltar(jugador, row, col, row - 1, col + 1, row - 2,
-							col + 2))
-						movimientos.addElement(new CheckersMove(row, col, row - 2,
-								col + 2));
-					if (puedeSaltar(jugador, row, col, row + 1, col - 1, row + 2,
-							col - 2))
-						movimientos.addElement(new CheckersMove(row, col, row + 2,
-								col - 2));
-					if (puedeSaltar(jugador, row, col, row - 1, col - 1, row - 2,
-							col - 2))
-						movimientos.addElement(new CheckersMove(row, col, row - 2,
-								col - 2));
+		for (int fila = 0; fila < 8; fila++) {
+			for (int columna = 0; columna < 8; columna++) {
+				if (tablero[fila][columna] == jugador || tablero[fila][columna] == jugadorRey) {
+					if (puedeSaltar(jugador, fila, columna, fila + 1, columna + 1, fila + 2,
+							columna + 2)) //Se observa salto hacia la esquina INFERIOR DERECHA 
+						movimientos.addElement(new MovimientoDamas(fila, columna, fila + 2,
+								columna + 2));
+					if (puedeSaltar(jugador, fila, columna, fila - 1, columna + 1, fila - 2,
+							columna + 2))// Salto hacia la esquina SUPERIOR DERECHA
+						movimientos.addElement(new MovimientoDamas(fila, columna, fila - 2,
+								columna + 2));
+					if (puedeSaltar(jugador, fila, columna, fila + 1, columna - 1, fila + 2,
+							columna - 2)) // Salto hacia la esquina INFERIOR IZQUIERDA
+						movimientos.addElement(new MovimientoDamas(fila, columna, fila + 2,
+								columna - 2));
+					if (puedeSaltar(jugador, fila, columna, fila - 1, columna - 1, fila - 2,
+							columna - 2)) // Salto hacia la esquina SUPERIOR IZQUIERDA
+						movimientos.addElement(new MovimientoDamas(fila, columna, fila - 2,
+								columna - 2));
 				}
 			}
 		}
 
 		/*
-		 * If any jump moves were found, then the user must jump, so we don't
-		 * add any regular moves. However, if no jumps were found, check for any
-		 * legal regualar moves. Look at each square on the board. If that
-		 * square contains one of the player's pieces, look at a possible move
-		 * in each of the four directions from that square. If there is a legal
-		 * move in that direction, put it in the moves vector.
+		 * Si se puede saltar , el jugador debe saltar, no se agregan movimiento normales. 
+                   Si no se puede saltar, observamos si existen movimientos normales de igual
+                manera que en los saltos, y se guardan en el vector de movimientos.
 		 */
 
 		if (movimientos.size() == 0) {
-			for (int row = 0; row < 8; row++) {
-				for (int col = 0; col < 8; col++) {
-					if (board[row][col] == jugador
-							|| board[row][col] == playerKing) {
-						if (canMove(jugador, row, col, row + 1, col + 1))
-							movimientos.addElement(new CheckersMove(row, col,
-									row + 1, col + 1));
-						if (canMove(jugador, row, col, row - 1, col + 1))
-							movimientos.addElement(new CheckersMove(row, col,
-									row - 1, col + 1));
-						if (canMove(jugador, row, col, row + 1, col - 1))
-							movimientos.addElement(new CheckersMove(row, col,
-									row + 1, col - 1));
-						if (canMove(jugador, row, col, row - 1, col - 1))
-							movimientos.addElement(new CheckersMove(row, col,
-									row - 1, col - 1));
+			for (int fila = 0; fila < 8; fila++) {
+				for (int columna = 0; columna < 8; columna++) {
+					if (tablero[fila][columna] == jugador || tablero[fila][columna] == jugadorRey) {
+						if (puedeMover(jugador, fila, columna, fila + 1, columna + 1))
+							movimientos.addElement(new MovimientoDamas(fila, columna,
+									fila + 1, columna + 1));
+						if (puedeMover(jugador, fila, columna, fila - 1, columna + 1))
+							movimientos.addElement(new MovimientoDamas(fila, columna,
+									fila - 1, columna + 1));
+						if (puedeMover(jugador, fila, columna, fila + 1, columna - 1))
+							movimientos.addElement(new MovimientoDamas(fila, columna,
+									fila + 1, columna - 1));
+						if (puedeMover(jugador, fila, columna, fila - 1, columna - 1))
+							movimientos.addElement(new MovimientoDamas(fila, columna,
+									fila - 1, columna - 1));
 					}
 				}
 			}
 		}
 
 		/*
-		 * If no legal moves have been found, return null. Otherwise, create an
-		 * array just big enough to hold all the legal moves, copy the legal
-		 * moves from the vector into the array, and return the array.
+		 * Si no hay movimientos se devuelve null.Si no, se crea un 
+                   array del mismo tamaño, se copian los movimientos del vector
+                   en el array, y se devuelve el array con los movimientos legales(o no).
 		 */
 
 		if (movimientos.size() == 0)
 			return null;
 		else {
-			CheckersMove[] moveArray = new CheckersMove[movimientos.size()];
+			MovimientoDamas[] arrayMovimientos = new MovimientoDamas[movimientos.size()];
 			for (int i = 0; i < movimientos.size(); i++)
-				moveArray[i] = (CheckersMove) movimientos.elementAt(i);
-			return moveArray;
+				arrayMovimientos[i] = (MovimientoDamas) movimientos.elementoActual(i);
+			return arrayMovimientos;
 		}
 
-	} // end getLegalMoves
+	} // Final getMovimientosLegales()
     
 }
