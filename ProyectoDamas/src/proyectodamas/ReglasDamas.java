@@ -137,17 +137,18 @@ public class ReglasDamas  {
 				for (int columna = 0; columna < 8; columna++) {
 					if (tablero[fila][columna] == jugador || tablero[fila][columna] == jugadorRey) {
 						if (puedeMover(jugador, fila, columna, fila + 1, columna + 1))
+                                                      //Se observa movimiento hacia la esquina INFERIOR DERECHA 
 							movimientos.addElement(new MovimientoDamas(fila, columna,
 									fila + 1, columna + 1));
 						if (puedeMover(jugador, fila, columna, fila - 1, columna + 1))
 							movimientos.addElement(new MovimientoDamas(fila, columna,
-									fila - 1, columna + 1));
+									fila - 1, columna + 1)); // esquina SUPERIOR DERECHA
 						if (puedeMover(jugador, fila, columna, fila + 1, columna - 1))
 							movimientos.addElement(new MovimientoDamas(fila, columna,
-									fila + 1, columna - 1));
+									fila + 1, columna - 1)); // esquina INFERIOR IZQUIERDA
 						if (puedeMover(jugador, fila, columna, fila - 1, columna - 1))
 							movimientos.addElement(new MovimientoDamas(fila, columna,
-									fila - 1, columna - 1));
+									fila - 1, columna - 1)); // esquina SUPERIOR IZQUIERDA
 					}
 				}
 			}
