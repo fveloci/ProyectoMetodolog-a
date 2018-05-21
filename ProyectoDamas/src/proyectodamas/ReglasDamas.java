@@ -9,7 +9,7 @@ package proyectodamas;
  *
  * @author VELOCI
  */
-public class ReglasDamas {
+public class ReglasDamas  {
     /* -Esta clase contiene las reglas que las fichas deberan seguir.
        -Las fichas ROJAS se moveran hacia arriba del tablero.(El numero de filas ira en aumento)
        -Las fichas NEGRAS se moveran hacia abajo del tablero.(El numero de filas decrecerá)
@@ -29,21 +29,55 @@ public class ReglasDamas {
     public void preparaJuego(){
         /*Con este metodo vamos a preparar el tablero con las fichas colocadas
         en su posicion correspondiente. */
-        for (int row = 0; row < 8; row++) {
-			for (int col = 0; col < 8; col++) {
-				if (row % 2 == col % 2) {
-					if (row < 3)
-						tablero[row][col] = negro;
-					else if (row > 4)
-						tablero[row][col] = rojo;
+        for (int fila = 0; fila < 8; fila++) {
+			for (int columna = 0; columna < 8; columna++) {
+				if (fila % 2 == columna % 2) {
+					if (fila < 3)
+						tablero[fila][columna] = negro;
+					else if (fila > 4)
+						tablero[fila][columna] = rojo;
 					else
-						tablero[row][col] = esp_vacio;
+						tablero[fila][columna] = esp_vacio;
 				} else {
-					tablero[row][col] = esp_vacio;
+					tablero[fila][columna] = esp_vacio;
 				}
 			}
 		}
-        
-    
     }
+        public int posicionPieza(int fila, int columna) {
+		//devuelve el valor de lo que se encuentra en esa posición
+		return tablero[fila][columna];
+	}
+    public void colocaPieza(int row, int col, int piece) {
+		/*Coloca pieza (o no)en el lugar especificado,esta 
+        pieza se coloca con su valor constante.
+		*/
+		tablero[row][col] = piece;
+	}
+    public void hacerMovimiento(MovimientoDamas mover) {
+		// Make the specified move. It is assumed that move
+		// is non-null and that the move it represents is legal.
+		hacerMovimiento(mover.de_Fila, mover.de_Columna, mover.a_Fila, mover.a_Columna);
+	}
+
+	public void hacerMovimiento(int de_Fila, int de_Columna, int a_Fila, int a_Columna) {
+		// Make the move from (fromRow,fromCol) to (toRow,toCol). It is
+		// assumed that this move is legal. If the move is a jump, the
+		// jumped piece is removed from the board. If a piece moves
+		// the last row on the opponent's side of the board, the
+		// piece becomes a king.
+		tablero[a_Fila][a_Columna] = tablero[de_Fila][a_Columna];
+		tablero[de_Fila][de_Columna] = esp_vacio;
+		if (de_Fila - a_Fila == 2 || de_Fila - a_Fila == -2) {
+			// The move is a jump. Remove the jumped piece from the board.
+			int saltoFila = (de_Fila + a_Fila) / 2; // Row of the jumped piece.
+			int saltoColumna = (de_Columna + a_Columna) / 2; // Column of the jumped piece.
+			tablero[saltoFila][saltoColumna] = esp_vacio;
+		}
+		if (a_Fila == 0 && tablero[a_Fila][a_Columna] == rojo)
+			tablero[a_Fila][a_Columna] = rey_rojo;
+		if (a_Fila == 7 && tablero[a_Fila][a_Columna] == negro)
+			tablero[a_Fila][a_Columna] = rey_negro;
+	}
+    
 }
