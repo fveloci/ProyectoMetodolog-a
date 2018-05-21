@@ -29,9 +29,20 @@ public class ReglasDamas {
     public void preparaJuego(){
         /*Con este metodo vamos a preparar el tablero con las fichas colocadas
         en su posicion correspondiente. */
-        for(int fila=0;fila<8;fila++){
-        
-    }
+        for (int row = 0; row < 8; row++) {
+			for (int col = 0; col < 8; col++) {
+				if (row % 2 == col % 2) {
+					if (row < 3)
+						tablero[row][col] = negro;
+					else if (row > 4)
+						tablero[row][col] = rojo;
+					else
+						tablero[row][col] = esp_vacio;
+				} else {
+					tablero[row][col] = esp_vacio;
+				}
+			}
+		}
         
     
     }
