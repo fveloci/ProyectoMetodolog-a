@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package proyectodamas;
-
 import java.util.Vector;
 
-/**
- *
- * @author VELOCI
- */
+
 public class ReglasDamas  {
     /* -Esta clase contiene las reglas que las fichas deberan seguir.
        -Las fichas ROJAS se moveran hacia arriba del tablero.(El numero de filas ira en aumento)
@@ -170,5 +161,50 @@ public class ReglasDamas  {
 		}
 
 	} // Final getMovimientosLegales()
+        
+        
+        public MovimientoDamas[] getSaltosLegalesDesde (int jugador, int fila, int columna) { // CON ESTE METODO PASAMOS PARAMETROS DEL JUGADOR SEA ROJO O NEGRO Y LA POSIION 
+            // EN LA QUE ESTA PARA QUE PODAMOS ANALIZAR LOS MOVIMIENTOS
+		
+            /* El metodo esta creado para hacer una coleccion un vector en este caso que contenga los movimientos legales de salto que el jugador 
+            puede hacer desde una fila y columna. Si no hay movimientos vamos a devolver un valor nulo que va a indicar que no tiene posibilidades de hacer
+            algun movimiento de la pieza.
+            */
+            
+            
+		if (jugador != rojo && jugador != negro)
+			return null;
+                
+		int rey_del_Jugador; // vamos a Darle el nombre de rey del jugador dependiendo de que "Color" es el que esta buscando movimientos
+		if (jugador == rojo) // si el jugador es el rojo se le va asignar la constante rey del jugador = a rey rojo en valor de matriz "3"
+			rey_del_Jugador = rey_rojo;
+		else
+			rey_del_Jugador = rey_negro;
+                
+		Vector movimientos_almacenados = new Vector();  // los movimientos de La ficha Seleccionada se van a almacenar el un vector
+                // se crea un vector dinamico debido a que no sabemos cuantos elementos (movimientos) se puedan llegar a generar.
+		if (tablero[fila][columna] == jugador || tablero[fila][columna] == rey_del_Jugador) { //  AHORA ANALIZAMOS EL MOVIMIENTO CON EL METODO DE PUEDE SALTAR
+                // SI LA CONDICION RESULTA VAMOS A AÑADIR UN ELEMENTO AL VECTOR DE LOS MOVIMIENTOS ALMACENADOS.
+			if (puedeSaltar(jugador, fila, columna, fila + 1, columna + 1, fila + 2, columna + 2))
+				movimientos_almacenados.addElement(new MovimientoDamas(fila, columna, fila + 2, columna + 2));
+			if (puedeSaltar(jugador, fila, columna, fila - 1, columna + 1, fila - 2, columna + 2))
+				movimientos_almacenados.addElement(new MovimientoDamas(fila, columna, fila - 2, columna + 2));
+			if (puedeSaltar(jugador, fila, columna, fila + 1, columna - 1, fila + 2, columna - 2))
+				movimientos_almacenados.addElement(new MovimientoDamas(fila, columna, fila + 2, columna - 2));
+			if (puedeSaltar(jugador, fila, columna, fila - 1, columna - 1, fila - 2, columna - 2))
+				movimientos_almacenados.addElement(new MovimientoDamas(fila, columna, fila - 2, columna - 2));
+		}
+		if (movimientos_almacenados.size() == 0) // SI NOS HAY MOVIMIENTOS VAMOS A HACER QUE EL ARREGLO SEA IGUAL A 0 Y POR LO TANTO RETORNAMOS UN NULO
+			return null;
+		else { // SI HAY MOVIMIENTOS VAMOS A PROCEDER A 
+			
+                MovimientoDamas[] Arreglo_Movimientos = new MovimientoDamas[movimientos_almacenados.size()]; // VAMOS A METER LOS MOVIMIENTOS AL ARREGLO QUE CONTIENE LOS QUE SE PUEDEN HACER
+			for (int i = 0; i < movimientos_almacenados.size(); i++) // VAMOS A INICIAR UN BUCLE PARA METER LOS MOVIMIENTOS EN EL ARREGLO
+				Arreglo_Movimientos[i] = (MovimientoDamas) movimientos_almacenados.elementAt(i);
+                        
+			return Arreglo_Movimientos;
+		}
+	} // fin del metodo getSaltosLegalDesde
+        
     
 }
