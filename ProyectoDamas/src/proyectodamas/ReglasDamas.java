@@ -204,7 +204,7 @@ public class ReglasDamas  {
                         
 			return Arreglo_Movimientos;
 		}
-	} // fin del metodo getSaltosLegalDesde
+	} // fin del metodo getSaltosLegalDesde.
         
     
 }
