@@ -84,5 +84,65 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
 		botonNuevoJuego.setEnabled(true);
 		botonAbandona.setEnabled(false);
 		juegoEnProgreso = false;
-	}        
+	}     
+        
+        
+        
+        void hacerClickEnUnCuadrado (int fila, int columna){
+            // Este METODO VA A SER LLAMADO POR mousePressed(), cuando un jugador haga click en un cuadrado especifico en una Fila y Columna. Si se compruba
+            // que el juego esta en progreso
+            
+            /*
+            CUANDO EL JUGADOR HAGA CLICK EN UNA PIEZA DE LAS QUE PUEDE MOVER , SE MARCA LA FILA Y COLUMNA QUE SELECCIONA. 
+            */
+            
+            for (int i = 0; i < movimientosLegales.length; i++)
+			if (movimientosLegales[i].de_Fila == fila && movimientosLegales[i].de_Columna == columna) {
+                            
+				filaSeleccionada = fila;
+				columnaSeleccionada = columna;
+				
+                                if (jugadorActual == ReglasDamas.rojo)
+					mensaje.setText("ROJO DEBE DE MOVER");
+				else
+					mensaje.setText("NEGRO DEBE DE MOVER");
+				repaint();
+				return;
+			}
+
+	
+           /* VAMOS A CONSIDERAR QUE SI NINGUNA PIEZA ES SELECCIONADA TENESMOS QUE AVISARLE , DARLE , LA INFORMACION AL JUGADOR DE QUE 
+           DEBE DE MOVER UNA PIEZA SELECCIONANDOLA PRIMERO.
+            */
+
+		if (filaSeleccionada < 0) {
+			mensaje.setText("SELECCIONE UNA PIEZA Y REALIZE UN MOVIMIENTO");
+			return;
+		}
+
+                   // PROCEDEMOS A CREAR EL METODO PARA RECORRER TODOS LOS MOVIMIENTOS LEGALES QUE EL JUGADOR PUEDE HACER CON LA PIEZA
+                // SELECCIONADA . SI EL MOVIMIENTO SELECCIONADO EN FILA Y COLUMNA ES IGUAL FILA SELECCIONADA Y COLUMNA A LA QUE EL JUGADOR 
+                // QUIERE REALIZAR EL MOVIMIENTO SE EJECUTA EL METODO . HACER MOVIMIENTO CON EL PARAMETRO DONDE LAS CONDICIONES SE CUMPLIERON
+		
+              
+               
+		for (int i = 0; i < movimientosLegales.length; i++) //Vamos A RE CORRER TODO EL ARREGLO DE LOS MOVIMIENTOS LEGALES
+			if (movimientosLegales[i].de_Fila == filaSeleccionada // CADA VEZ QUE RECORRAMOS LOS MOVIMIENTOS LEGALES , VEMOS SI COINCIDEN CON LA FILA SELECCIONADA
+			&& movimientosLegales[i].de_Columna == columnaSeleccionada // TAMBIEN SI LA COLUMNA CUMPLE LA MISMA CONDICION
+			&& movimientosLegales[i].a_Fila == fila && movimientosLegales[i].a_Columna == columna) { // Y AHORA VEMOS QUE PARA QUE SE CUMPLA
+                            // LA CONDICION EL LUGAR A DONDE QUEREMOS MOVERLO SEA FILA Y COLUMNA COINCIDE CON LA VARIABLE a_fila y a_columna CON LA SELECCIONADA
+                            // PARA QUE EL MOVIMIENTO SEA LEGAL
+				hacerMovimiento(movimientosLegales[i]);// CUANDO SE CUMPLA LA CONDICION VAMOS A TENER EN CUENTA QUE LA POSICION DONDE SE "DETUVO" AL HABER
+                  // CUMPLIDO LA CONDICION DE QUE SEA UN MOVIMIENTO LEGALE EL SELECCIONADO , EJECUTAMOS EL METODO HACERMOVIMIENTO  CON 
+                //MOVIMIENTOS LEGALES Y LA VARIABLE I QUE DEPENDIENDO EL MOMENTO EN QUE SE CUMPLA LA CONDICION SE VA A PARAR SU VALOR Y PASRA COMO
+                // PARAMETRO.
+				return;
+			}
+
+                // SI NUNGA CONDICION SE CUMPLE ESTAMOS SABIENDO QUE EL JUGADOR CLICKEA EN UN CUADRADO DONDE NO HAY PIEZA QUE LE PERTENESCA PARA MOVER
+                // Y SI LE PERTENECE PERO NO PUEDE SER MOVIDA SE LE DARA EL MISMO MENSAJE
+
+		mensaje.setText("SELECCIONE UNA PIEZA QUE PUEDA MOVER LEGALMENTE Y CONCUERDE CON SU TURNO");
+
+        }
 }
