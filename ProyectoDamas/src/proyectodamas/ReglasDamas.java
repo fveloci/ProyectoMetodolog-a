@@ -1,5 +1,9 @@
+
+
 package proyectodamas;
 import java.util.Vector;
+
+
 
 
 public class ReglasDamas  {
@@ -11,9 +15,17 @@ public class ReglasDamas  {
    */
     /*SE CREAN LOS NUMEROS QUE CORRESPONDEN A LAS FICHAS, ESP_VACIO INDICA UN ESPACIO QUE NO CONTIENE
     FICHA*/
-    public static final int esp_vacio=0,rojo=1,negro=2,rey_rojo=3,rey_negro=4;
+   
+    public static final int esp_vacio=0;
+    public static final int rojo=1;
+    public static final int negro=2;
+    public static final int rey_rojo=3;
+    public static final int rey_negro=4;
+    
     
     private int [][]tablero;//Este arreglo representa al tablero, el cual tiene [filas][columnas].
+    
+    
     // CONSTRUCTOR
     public ReglasDamas(){
         tablero=new int[8][8];//Creamos un tablero de 8x8(es la medida de un tablero de damas convencional).
@@ -41,11 +53,11 @@ public class ReglasDamas  {
 		//devuelve el valor de lo que se encuentra en esa posición
 		return tablero[fila][columna];
 	}
-    public void colocaPieza(int row, int col, int piece) {
+    public void colocaPieza(int fila, int columna, int pieza) {
 		/*Coloca pieza (o no)en el lugar especificado,esta 
         pieza se coloca con su valor constante.
 		*/
-		tablero[row][col] = piece;
+		tablero[fila][columna] = pieza;
 	}
     public void hacerMovimiento(MovimientoDamas mover) {
 		/*Realiza el movimiento(no sabe si es nulo e ilegal)*/
@@ -56,13 +68,17 @@ public class ReglasDamas  {
 		/* Hace el movimiento desde un lugar hacia otro. 
                  Si hay salto la pieza saltada es comida y removida.Si se llega 
             al final del lado del oponente esa pieza se convierte en REY.*/
+            
 		tablero[a_Fila][a_Columna] = tablero[de_Fila][a_Columna];
+                
 		tablero[de_Fila][de_Columna] = esp_vacio;
+                
 		if (de_Fila - a_Fila == 2 || de_Fila - a_Fila == -2) {
 			// Esto es un salto. Por lo tanto la pieza saltada es comida.
 			int saltoFila = (de_Fila + a_Fila) / 2; // Se calcula la fila de la pieza que se salta.
 			int saltoColumna = (de_Columna + a_Columna) / 2; // Se calcula la columna de la pieza que se salta.
-			tablero[saltoFila][saltoColumna] = esp_vacio;
+			
+                        tablero[saltoFila][saltoColumna] = esp_vacio;
 		}
 		if (a_Fila == 0 && tablero[a_Fila][a_Columna] == rojo)
 			tablero[a_Fila][a_Columna] = rey_rojo;
@@ -123,7 +139,7 @@ public class ReglasDamas  {
                 manera que en los saltos, y se guardan en el vector de movimientos.
 		 */
 
-		if (movimientos.size() == 0) {
+		if (movimientos.isEmpty()) { // PODEMOS PONER QUE ES VACIO CON ESE METODO O SIMPLEMENTE ASIGNARLE 0.
 			for (int fila = 0; fila < 8; fila++) {
 				for (int columna = 0; columna < 8; columna++) {
 					if (tablero[fila][columna] == jugador || tablero[fila][columna] == jugadorRey) {
@@ -156,7 +172,7 @@ public class ReglasDamas  {
 		else {
 			MovimientoDamas[] arrayMovimientos = new MovimientoDamas[movimientos.size()];
 			for (int i = 0; i < movimientos.size(); i++)
-				arrayMovimientos[i] = (MovimientoDamas) movimientos.elementoActual(i);
+				arrayMovimientos[i] = (MovimientoDamas) movimientos.elementAt(i);
 			return arrayMovimientos;
 		}
 
@@ -206,5 +222,79 @@ public class ReglasDamas  {
 		}
 	} // fin del metodo getSaltosLegalDesde.
         
+        private boolean puedeSaltar(int jugador, int fila_1, int columna_1, int fila_2, int columna_2, int fila_3,
+			int columna_3) {
+		
+            /* 
+             EN ESTE METODO VAMOS A HACER QUE ANALIZE SI SE VA A PODER SALTAR  , VAMOS A PASAR COMO PARAMETRO EL JUGADOR SEA BLANCO O NEGRO
+            Y 3 LUGARES A ANALIZAR , LA POSICION ACTUAL  LA POSICION A LA QUE SE QUIERE SALTAR  Y LA POSICION QUE QUEDA EN EL MEDIO DEL SALTO
+             
+            */
+
+		if (fila_3 < 0 || fila_3 >= 8 || columna_3 < 0 || columna_3 >= 8) // LO PRIMERO A HACER ES VER QUE EL MOVIMIENTO DE LA FICHA NO SE QUIERA SALIR DE LA MATRIZ
+			return false; 
+                // LA FILA 3 Y COLUMNA 3 SON LAS QUE VAMOS A ANALIZAR  
+                 // POR LO TANTO ANALIZAMOS SI  ES MENOR A 0 O MAYOR IGUAL A 8 AL IGUAL QUE LAS COLUMNAS
+                // EL MOVMIENTO NO SERA POSIBLE PORQUE VA DESDE  0-7 LA MATRIZ Y DE 0-7 LAS COLUMNAS. POR LO TANTO CON QUE UNA CONDICION CUMPLA DE QUE 
+                // SE EXEDE DE LOS LIMITES VAMOS A RETORNAR UN BOOLEAN DE FALSO PARA QUE NO PUEDA SALTAR.
+		if (tablero[fila_3][columna_3] != esp_vacio)
+			return false; // RETORNAMOS FALSO PORQUE SI NO HAY ESPACIO VACIO , SE CONSIDERA QUE HAY FICHA
+                // SI EL JUGADOR ES ROJO VAMOS A CONSIDERAR EL MOVIMIENTO PARA LAS ROJAS.
+		if (jugador == rojo) {
+                                  if (tablero[fila_1][columna_1] == rojo && fila_3 > fila_1){ // SI LA POSICION DEL TABLERO EN LA QUE ESTA ES IGUAL A VALOR ROJO
+                                // Y LA FILA 3 ES MAYOR EN VALOR A LA 1 VAMOS A ASUMIR QUE LA ROJA SOLO PUEDE MOVERSE UN LUGAR
+				return false;} // RETORNAMOS FALSO PORQUE LA PIEZA ROJA SOLO SE MUEVE HACIA ARRIBA 
+                                // AHORA TOCA ANALIZAR LA FILA 2 Y COLUMNA DOS , SABIENDO QUE NO ES NEGRA Y TAMPOCO ES UNA REY DE LA FICHA NEGRA VAMOS A CONSIDERAR
+                                // QUE NO HAY UNA PIEZA NEGRA PARA PODER SALTAR
+                                    { 
+                                    if (tablero[fila_2][columna_2] != negro && tablero[fila_2][columna_2] != rey_negro)
+				   return false;} // RETORNAMOS FALSO PORQUE NO HAY PIEZA QUE SEA NEGRA PARA SALTAR
+                        
+                        return true; }  // EL SALTO ES LEGAL.
+		 else {
+			if (tablero[fila_1][columna_1] == negro && fila_3 < fila_1) // ANALIZA LA FICHA NEGRA SI EL MOVIMIENTO ES HACIA ABAJO.
+				return false; //  RETORNAMOS FALSO PORQUE LA PIEZA NEGRA SOLO SE MUEVE HACIA ABAJO 
+			if (tablero[fila_2][columna_2] != rojo && tablero[fila_2][columna_2] != rey_rojo) // SI LA POSICION NO HAY ROJO, Y TAMPOCO HAY UN REY .
+                            // NO SE PUEDE COMERTER UN SALTO
+				return false; // RETORNARA FALSO EL SALTO.
+                                 
+                   return true; // EL SALTO ES LEGAL.
+		}
+
+	} // cierra el metodo de PuedeSaltar
+        
+         private boolean puedeMover (int jugador, int fila_1, int columna_1, int fila_2, int columna_2) {
+
+             // EL METODO VA ANALIZAR SI EL MOVIMIENTO COMUN , QUE VA A REALIZAR LA FICHA , DEPENDIENDO EL TURNO ES LEGAL O NO. ASUMIENDO VARIABLES DE LA FILA
+             // ACTUAL Y A LA QUE SE QUIERE HACER EL MOVIMIENTO.
+             
+             
+
+		if (fila_2 < 0 || fila_2 >= 8 || columna_2 < 0 || columna_2 >= 8) // COMO EL METODO DE SALTO ANALIZAMOS LA POSIBILIDAD DE QUE EN ESTE CASO EL 
+                    // MOVIMIENTO QUE VA A EJECUTAR NO SEA FUERA DEL TABLERO POR LO TANTO ANALIZAMOS QUE SEA MAYOR A 0 Y MENOR A 8 EN LOS CASOS 
+                    // DE LA FILA Y COLUMNA
+			return false; // RETORNAMOS FALSO EL MOVIMIENTO
+
+                
+		if (tablero[fila_2][columna_2] != esp_vacio) // SI NO HAY ESPACIO VACIO.
+			return false; // ANALIZAMOS QUE EL ESPACIO A MOVER TENGA O NO UNA  FICHA , SI NO HAY ESPACIO VACIO POR LEY HAY UNA 
+                // FICHA , CUALUIERA SEA EL VALOR DE LA MATRIZ QUE HAY , NO SE PUEDE HACER EL MOVIMIENTO SOBRE UNA PIEZA.
+
+		if (jugador == rojo) {
+			
+                                if (tablero[fila_1][columna_1] == rojo && fila_2 > fila_1)
+				return false; // SE FIJA SI EL MOVIMIENTO ES HACIA ABAJO
+			        
+                        return true; // The move is legal.
+		}   
+                         else {
+                                if (tablero[fila_1][columna_1] == negro && fila_2 < fila_1)
+				return false; //NEGRAS SOLO MUEVEN HACIA ARRIBA
+                        
+                        
+               return true; // EL MOVIMIENTO ES LEGAL.
+		}
+
+	} // FINALIZA METODO PuedeMover. 
     
 }
