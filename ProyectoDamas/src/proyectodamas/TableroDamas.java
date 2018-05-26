@@ -120,7 +120,7 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
 			return;
 		}
 
-                   // PROCEDEMOS A CREAR EL METODO PARA RECORRER TODOS LOS MOVIMIENTOS LEGALES QUE EL JUGADOR PUEDE HACER CON LA PIEZA
+                  // PROCEDEMOS A CREAR EL METODO PARA RECORRER TODOS LOS MOVIMIENTOS LEGALES QUE EL JUGADOR PUEDE HACER CON LA PIEZA
                 // SELECCIONADA . SI EL MOVIMIENTO SELECCIONADO EN FILA Y COLUMNA ES IGUAL FILA SELECCIONADA Y COLUMNA A LA QUE EL JUGADOR 
                 // QUIERE REALIZAR EL MOVIMIENTO SE EJECUTA EL METODO . HACER MOVIMIENTO CON EL PARAMETRO DONDE LAS CONDICIONES SE CUMPLIERON
 		
@@ -145,4 +145,80 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
 		mensaje.setText("SELECCIONE UNA PIEZA QUE PUEDA MOVER LEGALMENTE Y CONCUERDE CON SU TURNO");
 
         }
+        
+      void hacerMovimiento ( MovimientoDamas mueve) {
+		
+		tablero.hacerMovimiento(mueve);   // SE PROCEDE A EJECUTAR EL METODO DE HACER MOVIMIENTOS , PASANDO COMO PARAMETRO EL OBJETO MUEVE
+                if (mueve.esSalto()) { // SI EL MOVIMIENTO ES UN SALTO , DEBEMOS VER LA POSIBILIDAD  DE QUE LA FICHA SIGA REALIZANDO OTRO SALTO
+			movimientosLegales = tablero.getSaltosLegalesDesde(jugadorActual, mueve.a_Fila, // VUELVE A VERIFICAR YA MOVIDA LA PIEZA SI 
+					mueve.a_Columna);// HAY OTRO SALTO LEGAL PARA REALIZAR.
+			
+                    if (movimientosLegales != null) { // SI EL ARREGLO INDICA QUE HAY MOVIMIENTOS LEGALES
+				
+                                      if (jugadorActual == ReglasDamas.rojo) // VERIFICAMOS QUIEN ES EL JUGADOR ACTUAL Y REALIZAMOS EL MENSAJE DE QUE DEBE SEGUIR SALTANDO
+					mensaje.setText("ROJO DEBE SEGUIR REALIZANDO SALTO");
+                                      else
+					mensaje.setText("NEGRAS DEBEN SEGUIR REALIZANDO SALTO");
+                                 
+                                      filaSeleccionada = mueve.a_Fila; //AHORA AL CUMPLIR ESTA CONDICION VOLVEMOS A PASAR LOS PARAMETROS PARA REALIZAR MOVIMIENTO
+				      columnaSeleccionada= mueve.a_Columna; // PASAMOS FILA Y COLUMNA .
+				repaint();
+				return;
+			}
+		}
+
+
+		if (jugadorActual == ReglasDamas.rojo) { // SI EL JUGADOR ACTUAL ES EL ROJO
+                    
+                   jugadorActual = ReglasDamas.negro; // SE PROCEDE A CAMBIAR EL TURNO
+	            movimientosLegales = tablero.getMovimientosLegales (jugadorActual);// Y OBTENER LOS MOVIMIENTOS LEGALES DEL JUGADOR ACTUAL.
+			
+                    if (movimientosLegales == null) // SI NO HAY MOVIMIENTOS LEGALES SIGNIFICA QUE O HAY PIEZAS BLOQUEADAS EN SU TOTALIDAD O NO HAY MOVIMIENTO
+				gameOver("NEGRO NO TIENE PIEZAS PARA MOVER, O ESTAN BLOQUEADAS, EL ROJO ES EL GANADO");
+			
+                    else if (movimientosLegales[0].esSalto()) // SINO SI EL UNICO MOVIMIENTO QUE TIENE ES UN SALTO SE LO OBLIGA A COMER .
+				
+                        mensaje.setText("NEGRO DEBE MOVER ,PERO DEBE SALTAR");
+			
+                    else // SINO SI HAY MAS DE DOS MOVIMIENTOS Y NO ES NULO EL ARRAY , SIGNIFICA QUE TIENE MAS DE 1 POSIBILIDAD DE MOVER LIBREMENTE.
+				mensaje.setText("NEGRO DEBE MOVER");
+		} 
+                else { // SE PROCEDE A REALIZAR LA MISMA SECUENCIA SINO QUE PARA LAS PIEZAS ROJAS.
+			jugadorActual = ReglasDamas.rojo;
+			movimientosLegales = tablero.getMovimientosLegales(jugadorActual);
+			if (movimientosLegales == null)
+				gameOver("ROJO NO TIENE PIEZAS PARA PMOVER, O ESTAN BLOQUEADAS, LAS NEGRAS GANAN");
+			else if (movimientosLegales[0].esSalto())
+				mensaje.setText("ROJO DEBE MOVER ,PERO DEBE SALTAR");
+			else
+				mensaje.setText("ROJO DEBE MOVER");
+		}
+
+		
+		filaSeleccionada = -1;// SE IGUALA A MENOS 1 PARA SETEAR QUE NO HAY PIEZA SELECCIONADA PARA MOVER.
+		
+                
+               
+                 /* AQUI VAMOS DECIRLE AL  USUARIO EL UNICO MOVIMIENTO DISPONIBLE QUE TIENE  EN UNA PIEZA. 
+                */
+                
+                
+		if (movimientosLegales != null) { // SI HAY ALMENOS UN MOVIMIENTO LEGAL
+			boolean mismaFicha = true; // DECLARAREMOS PRIMERO UN BOOLEAN PARA SABER SI ESTA CLICKEANDO LA MISMA FICHA
+                        
+			for (int i = 1; i < movimientosLegales.length; i++) // REOCRREMOS LOS DISTINTOS MOVIMIENTOS LEGALES
+			if (movimientosLegales[i].de_Fila != movimientosLegales[0].de_Fila || movimientosLegales[i].de_Columna != movimientosLegales[0].de_Columna) {
+                                    
+					mismaFicha = false; // SI UNA CONDICION SE CUMPLA QUE ES DISTINTA , SE LE ASIGNA EL VALOR FALSO A MISMA FICHA
+					break;
+				}
+			if (mismaFicha) { 
+				filaSeleccionada = movimientosLegales[0].de_Fila;
+				columnaSeleccionada = movimientosLegales[0].de_Columna;
+			}
+		}
+		repaint();
+
+	} // FINALIZA METODO DE HACER MOVIMIENTO.
+        
 }
