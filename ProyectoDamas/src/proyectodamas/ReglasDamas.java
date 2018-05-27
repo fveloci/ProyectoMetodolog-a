@@ -285,7 +285,7 @@ public class ReglasDamas  {
                                 if (tablero[fila_1][columna_1] == rojo && fila_2 > fila_1)
 				return false; // SE FIJA SI EL MOVIMIENTO ES HACIA ABAJO
 			        
-                        return true; // The move is legal.
+                        return true; // EL MOVIMIENT OES LEGAL
 		}   
                          else {
                                 if (tablero[fila_1][columna_1] == negro && fila_2 < fila_1)
