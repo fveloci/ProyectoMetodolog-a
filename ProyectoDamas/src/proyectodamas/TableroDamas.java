@@ -4,11 +4,13 @@ package proyectodamas;
 import java.awt.Button;
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 
@@ -174,11 +176,11 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
 	            movimientosLegales = tablero.getMovimientosLegales (jugadorActual);// Y OBTENER LOS MOVIMIENTOS LEGALES DEL JUGADOR ACTUAL.
 			
                     if (movimientosLegales == null) // SI NO HAY MOVIMIENTOS LEGALES SIGNIFICA QUE O HAY PIEZAS BLOQUEADAS EN SU TOTALIDAD O NO HAY MOVIMIENTO
-				gameOver("NEGRO NO TIENE PIEZAS PARA MOVER, O ESTAN BLOQUEADAS, EL ROJO ES EL GANADO");
+				gameOver("NEGRO NO TIENE MOVIMIENTOS, EL ROJO ES EL GANADOR");
 			
                     else if (movimientosLegales[0].esSalto()) // SINO SI EL UNICO MOVIMIENTO QUE TIENE ES UN SALTO SE LO OBLIGA A COMER .
 				
-                        mensaje.setText("NEGRO DEBE MOVER ,PERO DEBE SALTAR");
+                        mensaje.setText("NEGRO DEBE SALTAR");
 			
                     else // SINO SI HAY MAS DE DOS MOVIMIENTOS Y NO ES NULO EL ARRAY , SIGNIFICA QUE TIENE MAS DE 1 POSIBILIDAD DE MOVER LIBREMENTE.
 				mensaje.setText("NEGRO DEBE MOVER");
@@ -187,9 +189,9 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
 			jugadorActual = ReglasDamas.rojo;
 			movimientosLegales = tablero.getMovimientosLegales(jugadorActual);
 			if (movimientosLegales == null)
-				gameOver("ROJO NO TIENE PIEZAS PARA PMOVER, O ESTAN BLOQUEADAS, LAS NEGRAS GANAN");
+				gameOver("ROJO NO TIENE MOVIMIENTOS, LAS NEGRAS GANAN");
 			else if (movimientosLegales[0].esSalto())
-				mensaje.setText("ROJO DEBE MOVER ,PERO DEBE SALTAR");
+				mensaje.setText("ROJO DEBE SALTAR");
 			else
 				mensaje.setText("ROJO DEBE MOVER");
 		}
@@ -199,7 +201,9 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
 		
                 
                
-                 /* AQUI VAMOS DECIRLE AL  USUARIO EL UNICO MOVIMIENTO DISPONIBLE QUE TIENE  EN UNA PIEZA. 
+                 /* 
+                AYUDA AL USUARIO PARA INDICARLE SI TIENE UNA UNICA PIEZA PARA MOVER, SE LE MARCARA 
+                AUTOMATICAMENTE.
                 */
                 
                 
@@ -219,6 +223,118 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
 		}
 		repaint();
 
-	} // FINALIZA METODO DE HACER MOVIMIENTO.
-        
+	} // FINALIZA METODO DE HACER MOVIMIENTO().
+      
+      
+      public void update(Graphics g) {
+		// Este metodo dibuja completamente el tablero.
+		paint(g);
+	}
+     public void paint(Graphics g) {
+		/* Metodo que se utiliza para dibujar el tablero y las fichas.
+                Si hay un juego en progreso lo que se dibujan son los movimientos legales 
+                utilizando un borde en el casillero correspondiente.
+                .*/
+
+		/* Borde al rededor del tablero.*/
+
+		g.setColor(Color.black);
+		g.drawRect(0, 0, getSize().width - 1, getSize().height - 1);
+		g.drawRect(1, 1, getSize().width - 3, getSize().height - 3);
+
+		/* Dibujamos los cuadrados del tablero y la fichas. */
+
+		for (int fila = 0; fila < 8; fila++) {//Bucle de dibujado de tablero y fichas
+			for (int columna = 0; columna < 8; columna++) {
+				if (fila % 2 == columna % 2)
+					g.setColor(Color.white);
+				else
+					g.setColor(Color.lightGray);
+				g.fillRect(2 + columna * 80, 2 + fila * 80, 80, 80);
+				switch (tablero.posicionPieza(fila, columna)) {
+				case ReglasDamas.rojo:
+					g.setColor(Color.red);
+					g.fillOval(4 + columna * 82, 4 + fila * 81, 64, 64);
+					break;
+				case ReglasDamas.negro:
+					g.setColor(Color.black);
+					g.fillOval(4 + columna * 82, 4 + fila * 81, 64, 64);
+					break;
+				case ReglasDamas.rey_rojo:
+					g.setColor(Color.red);
+					g.fillOval(4 + columna * 80, 4 + fila * 80, 64, 64);
+					g.setColor(Color.white);
+					g.drawString("K", 7 + columna * 80, 64 + fila * 80);
+					break;
+				case ReglasDamas.rey_negro:
+					g.setColor(Color.black);
+					g.fillOval(4 + columna * 80, 4 + fila * 80, 64, 64);
+					g.setColor(Color.white);
+					g.drawString("K", 7 + columna * 80, 64 + fila * 80);
+					break;
+				}
+			}
+		}
+   
+                if(juegoEnProgreso){
+                    // Se dibuja un borde al rededor de las piezas que se pueden mover.
+			g.setColor(Color.green);
+			for (int i = 0; i < movimientosLegales.length; i++) {
+				g.drawRect(2 + movimientosLegales[i].de_Columna * 80,
+						2 + movimientosLegales[i].de_Fila * 80, 78, 78);
+			}
+			/*Cuando seleccionamos la pieza ese cuadrado tiene un borde amarillo*/
+			if (filaSeleccionada >= 0) {
+				g.setColor(Color.yellow);//Ficha seleccionada
+				g.drawRect(2 + columnaSeleccionada * 80, 2 + filaSeleccionada * 80, 78, 78);
+				g.drawRect(3 + columnaSeleccionada * 80, 3 + filaSeleccionada * 80, 78, 78);/*Se dibujan
+                                dos contornos para que se vea mejor*/
+				g.setColor(Color.orange);//Color de los movimientos legales.
+				for (int i = 0; i < movimientosLegales.length; i++) {
+					if (movimientosLegales[i].de_Columna == columnaSeleccionada
+							&& movimientosLegales[i].de_Fila == filaSeleccionada)
+						g.drawRect(2 + movimientosLegales[i].a_Columna * 80,
+								2 + movimientosLegales[i].a_Fila * 80, 78, 78);/*Se dibujan los
+                                        movimientos legales*/
+				}
+			}
 }
+     }
+    public void mousePressed(MouseEvent evt) {
+		/* Responde a un click.Si no hay juego, no se puede clikear(muestra mensaje).
+        Si no, busca la fila y columna seleccionada para manejarla con el metodo hacerClickEnUnCuadrado()*/
+		if (juegoEnProgreso == false)
+			mensaje.setText("DA CLICK EN -NUEVO JUEGO-");
+		else {
+			int columna = (evt.getX() - 2) / 80;
+			int fila = (evt.getY() - 2) / 80;
+			if (columna >= 0 && columna < 8 && fila >= 0 && fila < 8)
+				hacerClickEnUnCuadrado(fila, columna);
+		}
+	}
+
+	public void mouseReleased(MouseEvent evt) {
+	}
+
+	public void mouseClicked(MouseEvent evt) {
+	}
+
+	public void mouseEntered(MouseEvent evt) {
+	}
+
+	public void mouseExited(MouseEvent evt) {
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+}//Fin de la clase TABLERO DAMAS
