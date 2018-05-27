@@ -69,7 +69,7 @@ public class ReglasDamas  {
                  Si hay salto la pieza saltada es comida y removida.Si se llega 
             al final del lado del oponente esa pieza se convierte en REY.*/
             
-		tablero[a_Fila][a_Columna] = tablero[de_Fila][a_Columna];
+		tablero[a_Fila][a_Columna] = tablero[de_Fila][de_Columna];
                 
 		tablero[de_Fila][de_Columna] = esp_vacio;
                 

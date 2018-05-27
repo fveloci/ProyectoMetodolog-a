@@ -42,7 +42,7 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
 		botonNuevoJuego.addActionListener(this);
 		mensaje = new Label("", Label.CENTER);
 		tablero = new ReglasDamas();
-		
+		nuevoJuego();
 		
 	}
     public void actionPerformed(ActionEvent eventoClick){
@@ -299,7 +299,7 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
 				}
 			}
 }
-     }
+     }//FIN paint()
     public void mousePressed(MouseEvent evt) {
 		/* Responde a un click.Si no hay juego, no se puede clikear(muestra mensaje).
         Si no, busca la fila y columna seleccionada para manejarla con el metodo hacerClickEnUnCuadrado()*/
