@@ -30,15 +30,26 @@ public class Damas extends Applet {
                 tablero.tituloJuego.setBackground(Color.BLACK);
                 add (tablero.tituloJuego);
                 tablero.tituloJuego.setForeground(Color.WHITE);
-                 
+               
+                // CREACION DE DENTRO DE PANEL
+               
+               tablero.DentroPanelDeJuego.setBounds(685,15,235,780); 
+               tablero.DentroPanelDeJuego.setBackground(Color.BLACK);
+               
+               add (tablero.DentroPanelDeJuego);
                 
                 // CREACION DEL PANEL 
                
                 
                tablero.panelDeJuego.setBounds(680,10,245,790); 
-               tablero.panelDeJuego.setBackground(Color.black);
+               tablero.panelDeJuego.setBackground(Color.white);
+               
                
                add (tablero.panelDeJuego);
+               
+               
+               
+               
                 
                 tablero.botonNuevoJuego.setBackground(Color.BLACK); // LE DAMOS COLOR AL COLOR DE BOTON NUEVO JUEGO
                 add(tablero);// AGREGAMOS EL OBJETO A INIT
