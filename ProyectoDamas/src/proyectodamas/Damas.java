@@ -18,7 +18,7 @@ public class Damas extends Applet {
 		
                 
                
-		setSize(950,850); // DAMOS ANCHO Y ALTO  A LA VENTANA DEL APPLET
+		setSize(950,670); // DAMOS ANCHO Y ALTO  A LA VENTANA DEL APPLET
 		setLayout(null);  // SETEAMOS UN LAYOUT SIN DEFINIR PARA QUE INICIE
                 setBackground(Color.GREEN.darker());// LE DAMOS UN FONDO AL APPLET
                 Frame c = (Frame)this.getParent().getParent(); // DAMOS TITULO AL JUEGO
@@ -56,13 +56,13 @@ public class Damas extends Applet {
                 add(tablero.menuPrincipal);
                 
                 // CREACION DE BOTONES DE REGLAS Y REGLA DE MOVIMIENTOS
-                tablero.reglasDelJuego.setBounds(700, 700, 200, 50);
+                tablero.reglasDelJuego.setBounds(700, 600, 200, 50);
                 tablero.reglasDelJuego.setBackground(Color.white);
                 tablero.reglasDelJuego.setForeground(Color.black);
                 add(tablero.reglasDelJuego);
                
                 // REGLA DE MOVIMIENTOS
-                tablero.reglasDeMovimientos.setBounds(700, 640, 200, 50);
+                tablero.reglasDeMovimientos.setBounds(700, 530, 200, 50);
                 tablero.reglasDeMovimientos.setBackground(Color.white);
                 tablero.reglasDeMovimientos.setForeground(Color.black);
                 add (tablero.reglasDeMovimientos);
@@ -78,12 +78,12 @@ public class Damas extends Applet {
                
               
                // CREACION DE DENTRO DE PANEL
-               tablero.DentroPanelDeJuego.setBounds(685,15,235,780); 
+               tablero.DentroPanelDeJuego.setBounds(685,15,235,640); 
                tablero.DentroPanelDeJuego.setBackground(Color.BLACK);
                add (tablero.DentroPanelDeJuego);
                  // CREACION DEL PANEL 
                
-               tablero.panelDeJuego.setBounds(680,10,245,790); 
+               tablero.panelDeJuego.setBounds(680,10,245,650); 
                tablero.panelDeJuego.setBackground(Color.white);
                add (tablero.panelDeJuego);
                
@@ -91,13 +91,13 @@ public class Damas extends Applet {
                
                
                // CREACION PANEL DENTRO DE MENSAJES
-                tablero.DentroPanelMensajes.setBounds(25,675,635,115); 
-               tablero.DentroPanelMensajes.setBackground(Color.BLACK);
-               add (tablero.DentroPanelMensajes);
+               //tablero.DentroPanelMensajes.setBounds(25,675,635,115); 
+               //tablero.DentroPanelMensajes.setBackground(Color.BLACK);
+               //add (tablero.DentroPanelMensajes);
                 // CREACION PANEL DE MENSAJES 
-                tablero.panelMensajes.setBounds(20,670,645,125); 
-               tablero.panelMensajes.setBackground(Color.white);
-               add (tablero.panelMensajes);
+               //tablero.panelMensajes.setBounds(20,670,645,125); 
+               //tablero.panelMensajes.setBackground(Color.white);
+               //add (tablero.panelMensajes);
                
                
                		
@@ -105,24 +105,11 @@ public class Damas extends Applet {
 		
                 tablero.mensaje.setFont(new Font("Serif", Font.ROMAN_BASELINE, 32));
 		add(tablero.mensaje);
-                
-                
-                
-                
-                
-               
-		
-		
-		
-               
-                
-                
-               
-                
-               
-                
-                                    
                  }
+   
+   public void Start (){
+       
+   }
     
                 
 }
