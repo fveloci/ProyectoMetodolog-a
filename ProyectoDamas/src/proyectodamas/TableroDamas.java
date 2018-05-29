@@ -8,16 +8,28 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Label;
+import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.JOptionPane;
 
 
 public class TableroDamas extends Damas implements ActionListener, MouseListener  {
     //SE DECLARAN LOS BOTONES NUEVO Y ABANDONA 
     Button botonNuevoJuego;
     Button botonAbandona;
+    Button CajaTiempo;
+    Button tituloJuego;
+    Panel panelDeJuego;
+    Panel DentroPanelDeJuego;
+    Panel panelMensajes;
+    Panel DentroPanelMensajes;
+    Button reglasDelJuego;
+    Button reglasDeMovimientos;
+    Button menuPrincipal;
+    
     //SE CREA UNA ETIQUETA PARA MOSTRAR MENSAJES
     Label mensaje;
     
@@ -33,16 +45,30 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
 		
     /*Crea los botones y la etiqueta de "mensaje".Espera a los clicks de MOUSE y clicks
         en los botones. Ademas creamos el tablero y la primera partida.*/
+                DentroPanelDeJuego= new Panel ();
+                panelDeJuego= new Panel ();
 		setBackground(Color.blue);
 		addMouseListener(this);
 		setFont(new Font("Arial", Font.ITALIC, 16));
-		botonAbandona = new Button("Abandonar");
+		botonAbandona = new Button("ABANDONAR");
 		botonAbandona.addActionListener(this);
-		botonNuevoJuego = new Button("Nuevo Juego");
+		botonNuevoJuego = new Button("NUEVO JUEGO");
 		botonNuevoJuego.addActionListener(this);
-		mensaje = new Label("", Label.CENTER);
+		mensaje = new Label("", Label.RIGHT);
 		tablero = new ReglasDamas();
-		nuevoJuego();
+                reglasDelJuego = new Button ("Reglas De Juego");
+                reglasDeMovimientos= new Button ("Reglas De Movimientos");
+                menuPrincipal= new Button ("MENU PRINCIPAL");
+                panelMensajes = new Panel ();
+                DentroPanelMensajes= new Panel ();
+                
+                
+                CajaTiempo= new Button ("TIEMPO DE JUEGO :");
+                
+                
+                tituloJuego= new Button ("█ DAMAS INGLESAS JUEGO LIBRE█");
+                
+		//nuevoJuego(); INICIO EL JUEGO
 		
 	}
     public void actionPerformed(ActionEvent eventoClick){
@@ -53,7 +79,17 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
         }else{
             if(src == botonAbandona){
                 rendirse();
-            }}}
+            }}
+        if (src == reglasDelJuego)
+            
+            JOptionPane.showMessageDialog(null, "REGLAS SON : AWWSDQWDQ");
+        else if (src== reglasDeMovimientos)
+            
+             JOptionPane.showMessageDialog(null, "REGLAS DE MOVIMIENTO : AWWSDQWDQ");
+    
+    
+    }
+    
     
 	public void nuevoJuego(){//Empieza un nuevo juego.
             
@@ -152,13 +188,14 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
 		
 		tablero.hacerMovimiento(mueve);   // SE PROCEDE A EJECUTAR EL METODO DE HACER MOVIMIENTOS , PASANDO COMO PARAMETRO EL OBJETO MUEVE
                 if (mueve.esSalto()) { // SI EL MOVIMIENTO ES UN SALTO , DEBEMOS VER LA POSIBILIDAD  DE QUE LA FICHA SIGA REALIZANDO OTRO SALTO
-			movimientosLegales = tablero.getSaltosLegalesDesde(jugadorActual, mueve.a_Fila, // VUELVE A VERIFICAR YA MOVIDA LA PIEZA SI 
-					mueve.a_Columna);// HAY OTRO SALTO LEGAL PARA REALIZAR.
+			
+                    movimientosLegales = tablero.getSaltosLegalesDesde(jugadorActual, mueve.a_Fila, // VUELVE A VERIFICAR YA MOVIDA LA PIEZA SI 
+		    mueve.a_Columna);// HAY OTRO SALTO LEGAL PARA REALIZAR.
 			
                     if (movimientosLegales != null) { // SI EL ARREGLO INDICA QUE HAY MOVIMIENTOS LEGALES
 				
-                                      if (jugadorActual == ReglasDamas.rojo) // VERIFICAMOS QUIEN ES EL JUGADOR ACTUAL Y REALIZAMOS EL MENSAJE DE QUE DEBE SEGUIR SALTANDO
-					mensaje.setText("ROJO DEBE SEGUIR REALIZANDO SALTO");
+                              if (jugadorActual == ReglasDamas.rojo) // VERIFICAMOS QUIEN ES EL JUGADOR ACTUAL Y REALIZAMOS EL MENSAJE DE QUE DEBE SEGUIR SALTANDO
+				mensaje.setText("ROJO DEBE SEGUIR REALIZANDO SALTO");
                                       else
 					mensaje.setText("NEGRAS DEBEN SEGUIR REALIZANDO SALTO");
                                  
@@ -235,9 +272,12 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
                 Si hay un juego en progreso lo que se dibujan son los movimientos legales 
                 utilizando un borde en el casillero correspondiente.
                 .*/
-
+                
 		/* Borde al rededor del tablero.*/
 
+                
+                
+             
 		g.setColor(Color.black);
 		g.drawRect(0, 0, getSize().width - 1, getSize().height - 1);
 		g.drawRect(1, 1, getSize().width - 3, getSize().height - 3);
@@ -247,33 +287,35 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
 		for (int fila = 0; fila < 8; fila++) {//Bucle de dibujado de tablero y fichas
 			for (int columna = 0; columna < 8; columna++) {
 				if (fila % 2 == columna % 2)
-					g.setColor(Color.white);
+					g.setColor(Color.WHITE);
 				else
-					g.setColor(Color.lightGray);
-				g.fillRect(2 + columna * 80, 2 + fila * 80, 80, 80);
+					g.setColor(Color.black);
+				g.fillRect(2 + columna * 80, 2 + fila * 80, 81, 81);
 				switch (tablero.posicionPieza(fila, columna)) {
 				case ReglasDamas.rojo:
 					g.setColor(Color.red);
-					g.fillOval(4 + columna * 82, 4 + fila * 81, 64, 64);
+					g.fillOval(4 + columna * 80, 4 + fila * 80, 74, 74);
 					break;
 				case ReglasDamas.negro:
-					g.setColor(Color.black);
-					g.fillOval(4 + columna * 82, 4 + fila * 81, 64, 64);
+					g.setColor(Color.BLACK);
+					g.fillOval(4 + columna * 80, 4 + fila * 80, 74, 74);
 					break;
 				case ReglasDamas.rey_rojo:
 					g.setColor(Color.red);
-					g.fillOval(4 + columna * 80, 4 + fila * 80, 64, 64);
+					g.fillOval(4 + columna * 80, 4 + fila * 80, 74, 74);
 					g.setColor(Color.white);
-					g.drawString("K", 7 + columna * 80, 64 + fila * 80);
+					g.drawString("*REY B*", 7 + columna * 80, 64 + fila * 78);
 					break;
 				case ReglasDamas.rey_negro:
 					g.setColor(Color.black);
-					g.fillOval(4 + columna * 80, 4 + fila * 80, 64, 64);
+					g.fillOval(4 + columna * 80, 4 + fila * 80, 74, 74);
 					g.setColor(Color.white);
-					g.drawString("K", 7 + columna * 80, 64 + fila * 80);
+					g.drawString("*REY N*", 7 + columna * 80, 64 + fila * 78);
+                                        
 					break;
 				}
 			}
+                        
 		}
    
                 if(juegoEnProgreso){
@@ -281,20 +323,20 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
 			g.setColor(Color.green);
 			for (int i = 0; i < movimientosLegales.length; i++) {
 				g.drawRect(2 + movimientosLegales[i].de_Columna * 80,
-						2 + movimientosLegales[i].de_Fila * 80, 78, 78);
+						2 + movimientosLegales[i].de_Fila * 80, 79, 79);
 			}
 			/*Cuando seleccionamos la pieza ese cuadrado tiene un borde amarillo*/
 			if (filaSeleccionada >= 0) {
 				g.setColor(Color.yellow);//Ficha seleccionada
-				g.drawRect(2 + columnaSeleccionada * 80, 2 + filaSeleccionada * 80, 78, 78);
-				g.drawRect(3 + columnaSeleccionada * 80, 3 + filaSeleccionada * 80, 78, 78);/*Se dibujan
+				g.drawRect(2 + columnaSeleccionada * 80, 2 + filaSeleccionada * 80, 77, 77);
+				g.drawRect(3 + columnaSeleccionada * 80, 3 + filaSeleccionada * 80, 77, 77);/*Se dibujan
                                 dos contornos para que se vea mejor*/
 				g.setColor(Color.orange);//Color de los movimientos legales.
 				for (int i = 0; i < movimientosLegales.length; i++) {
 					if (movimientosLegales[i].de_Columna == columnaSeleccionada
 							&& movimientosLegales[i].de_Fila == filaSeleccionada)
 						g.drawRect(2 + movimientosLegales[i].a_Columna * 80,
-								2 + movimientosLegales[i].a_Fila * 80, 78, 78);/*Se dibujan los
+								2 + movimientosLegales[i].a_Fila * 80, 77, 77);/*Se dibujan los
                                         movimientos legales*/
 				}
 			}
