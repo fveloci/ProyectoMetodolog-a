@@ -81,10 +81,14 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
                 rendirse();
             }else{
                 if(src == reglasDelJuego){
-                    JOptionPane.showMessageDialog(null, "REGLAS SON : LAS REGLAS SON: \n 1- HOLA \n 2-ETC");
+                    JOptionPane.showMessageDialog(null, "LAS REGLAS SON: \n 1- HOLA \n 2-ETC");
                 }else{
-                    if(src== reglasDeMovimientos){
+                    if(src == reglasDeMovimientos){
                         JOptionPane.showMessageDialog(null, "REGLAS DE MOVIMIENTO : AWWSDQWDQ");
+                    }else{
+                        if(src == menuPrincipal){
+                            LimpiarPantalla();
+                        }
                     }
                 }
             }
