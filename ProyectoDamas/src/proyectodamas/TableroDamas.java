@@ -21,14 +21,14 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
     Button botonNuevoJuego;
     Button botonAbandona;
     Button CajaTiempo;
-    Button tituloJuego;
+   
     Panel panelDeJuego;
     Panel DentroPanelDeJuego;
     Panel panelMensajes;
     Panel DentroPanelMensajes;
     Button reglasDelJuego;
     Button reglasDeMovimientos;
-    Button menuPrincipal;
+   
     
     //SE CREA UNA ETIQUETA PARA MOSTRAR MENSAJES
     Label mensaje;
@@ -57,8 +57,9 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
 		mensaje = new Label("", Label.RIGHT);
 		tablero = new ReglasDamas();
                 reglasDelJuego = new Button ("Reglas De Juego");
+                reglasDelJuego.addActionListener(this);
                 reglasDeMovimientos= new Button ("Reglas De Movimientos");
-                menuPrincipal= new Button ("MENU PRINCIPAL");
+               
                 panelMensajes = new Panel ();
                 DentroPanelMensajes= new Panel ();
                 
@@ -66,7 +67,6 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
                 CajaTiempo= new Button ("TIEMPO DE JUEGO :");
                 
                 
-                tituloJuego= new Button ("█ DAMAS INGLESAS JUEGO LIBRE█");
                 
 		//nuevoJuego(); INICIO EL JUEGO
 		
@@ -82,7 +82,7 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
             }}
         if (src == reglasDelJuego)
             
-            JOptionPane.showMessageDialog(null, "REGLAS SON : AWWSDQWDQ");
+            JOptionPane.showMessageDialog(null, "REGLAS SON : LAS REGLAS SON: \n 1- HOLA \n 2-ETC");
         else if (src== reglasDeMovimientos)
             
              JOptionPane.showMessageDialog(null, "REGLAS DE MOVIMIENTO : AWWSDQWDQ");

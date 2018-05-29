@@ -64,7 +64,7 @@ public class ReglasDamas  {
 		hacerMovimiento(mover.de_Fila, mover.de_Columna, mover.a_Fila, mover.a_Columna);
 	}
 
-	public void hacerMovimiento(int de_Fila, int de_Columna, int a_Fila, int a_Columna) {
+    public void hacerMovimiento(int de_Fila, int de_Columna, int a_Fila, int a_Columna) {
 		/* Hace el movimiento desde un lugar hacia otro. 
                  Si hay salto la pieza saltada es comida y removida.Si se llega 
             al final del lado del oponente esa pieza se convierte en REY.*/
@@ -86,7 +86,7 @@ public class ReglasDamas  {
 			tablero[a_Fila][a_Columna] = rey_negro;
 	}
         
-        public MovimientoDamas[] getMovimientosLegales(int jugador) {
+    public MovimientoDamas[] getMovimientosLegales(int jugador) {
 		/* Se devuelve un array con los movimiento legales para el jugador.
                   Si el jugador no tiene movimiento se devuelve null.El valor del
                   corresponde a una de las constantes "rojo" o "negro".Si no se devuelve
@@ -285,7 +285,7 @@ public class ReglasDamas  {
                                 if (tablero[fila_1][columna_1] == rojo && fila_2 > fila_1)
 				return false; // SE FIJA SI EL MOVIMIENTO ES HACIA ABAJO
 			        
-                        return true; // EL MOVIMIENT OES LEGAL
+                        return true; // EL MOVIMIENTOES LEGAL
 		}   
                          else {
                                 if (tablero[fila_1][columna_1] == negro && fila_2 < fila_1)

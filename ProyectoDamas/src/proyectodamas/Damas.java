@@ -2,23 +2,113 @@
 package proyectodamas; 
 
 import java.applet.*;
+import java.awt.Button;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Frame;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.util.Date;
+
+import java.awt.Panel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import javax.swing.JOptionPane;
 
 
-public class Damas extends Applet {
+
+public class Damas extends Applet implements ActionListener, MouseListener  {
    
-   public void init() {  // con el metodo INIT sobreescrito desde applet , Inicializamos la ventana, que contendra el awt del juego. 
+Button botonIniciarJuego;
+Button HumanoContraHumano;
+Button HumanoConComputadora;
+Panel PanelDeGrafica;
+Panel SuperiorPanel;
+Panel PañoLimpiador;
+Button menuPrincipal;
+
+public void actionPerformed(ActionEvent eventoClick){
+        //Realiza acciones de acuerdo al boton que se clickee.
+        Object src = eventoClick.getSource();
+        if(src == HumanoContraHumano ){ // SI SE CLICKEA EN HUMANO CONTRA HUMANO LIMPIO LA PANTALLA DE UNA MANERA POCO ORTODOXA
+            Comenzar();
+            LimpiarPantalla();
+            
+            
+        }
+        if(src == menuPrincipal){
+            LimpiarPantalla();
+            }
+        if (src==HumanoConComputadora){
+            JOptionPane.showMessageDialog (null,"AUN ESTA EN DESAROLLO");
+            
+        }
+       
     
-		
+    
+    } 
+
+
+
+public void start() {  // con el metodo INIT sobreescrito desde applet , Inicializamos la ventana, que contendra el awt del juego. 
+               
+                PañoLimpiador= new Panel ();
+		botonIniciarJuego= new Button ("-BIENVENIDO A DAMAS INGLESAS-");
+                HumanoContraHumano= new Button(" 1VS 1");
+                HumanoConComputadora= new Button(" 1 VS IA");
+                PanelDeGrafica= new Panel ();
+                SuperiorPanel= new Panel ();
+               // CREACION BOTONES INICIAR JUEGO
+                botonIniciarJuego.setBackground(Color.WHITE);
+                botonIniciarJuego.setForeground(Color.BLACK);
+                botonIniciarJuego.setBounds(30, 30, 850, 100);
+                add(botonIniciarJuego);
+               // FIN BOTON DE TITULO INICIAR JUEGO
+               // INICIO BOTON HUMANO CONTRA HUMANO 
+                HumanoContraHumano.setBackground(Color.white);
+                HumanoContraHumano.setForeground(Color.BLACK);
+                HumanoContraHumano.setBounds(200, 250, 250, 250);
+                HumanoContraHumano.addActionListener(this);
+                add (HumanoContraHumano);
+                //FIN BOTON HUMANO CONTRA HUMANO
+                // BOTON HUMANOCONTRA COMPUTADORA
+                 HumanoConComputadora.setBackground(Color.DARK_GRAY);
+                 HumanoConComputadora.setForeground(Color.WHITE);
+                 HumanoConComputadora.setBounds(450,250,250,250);
+                 HumanoConComputadora.addActionListener(this);
+                add (HumanoConComputadora);
+                // FIN BOTON HUMANO CONTRA COMPUTADORA
+                // LIENZO BAJO PANEL
+                 SuperiorPanel.setBackground(Color.BLACK);
+                 SuperiorPanel.setBounds(15, 15,885, 580);
+                  add (SuperiorPanel);
+
+
+
+                // CREACION DE PANELES.
+                PanelDeGrafica.setBackground(Color.WHITE);
+                PanelDeGrafica.setBounds( 10, 10, 900, 600);
+                add (PanelDeGrafica);
+                
                 
                
-		setSize(950,670); // DAMOS ANCHO Y ALTO  A LA VENTANA DEL APPLET
+                 
+                Frame c = (Frame)this.getParent().getParent(); // DAMOS TITULO AL JUEGO
+                c.setTitle("DAMAS BETA 0.01");
+		setSize(950,650); // DAMOS ANCHO Y ALTO  A LA VENTANA DEL APPLET
+		setLayout(null);  // SETEAMOS UN LAYOUT SIN DEFINIR PARA QUE INICIE
+                setBackground(Color.GREEN.darker());// LE DAMOS UN FONDO AL APPLET
+                //addMouseListener(this);
+		setFont(new Font("Arial", Font.ROMAN_BASELINE, 36));
+                }
+  
+   public void Comenzar (){
+                
+                setFont(new Font("Arial", Font.ROMAN_BASELINE, 36));
+                menuPrincipal= new Button ("MENU PRINCIPAL");
+                menuPrincipal.addActionListener(this);
+                setSize(950,670); // DAMOS ANCHO Y ALTO  A LA VENTANA DEL APPLET
 		setLayout(null);  // SETEAMOS UN LAYOUT SIN DEFINIR PARA QUE INICIE
                 setBackground(Color.GREEN.darker());// LE DAMOS UN FONDO AL APPLET
                 Frame c = (Frame)this.getParent().getParent(); // DAMOS TITULO AL JUEGO
@@ -28,7 +118,7 @@ public class Damas extends Applet {
                 tablero.setBounds(20, 15, 645,645 );  // PROCEDEMOS A DAR LIMITES , Y LUGAR DE POSICION DE CADA OBJETO
                 add(tablero);// AGREGAMOS EL OBJETO A INIT
                 
-                
+               
                // CREO LA CAJA PARA PONEER EL TIEMPO DE JUEGO :
                 tablero.CajaTiempo.setBounds(700, 210, 200, 50);
                 tablero.CajaTiempo.setBackground(Color.WHITE);
@@ -50,10 +140,10 @@ public class Damas extends Applet {
 
                 // CREACION BOTON MENU PRINCIPAL
                 
-                tablero.menuPrincipal.setBounds(700, 30, 200, 50);
-                tablero.menuPrincipal.setBackground(Color.white);
-                tablero.menuPrincipal.setForeground(Color.black);
-                add(tablero.menuPrincipal);
+               menuPrincipal.setBounds(700, 30, 200, 50);
+                menuPrincipal.setBackground(Color.white);
+                menuPrincipal.setForeground(Color.black);
+                add(menuPrincipal);
                 
                 // CREACION DE BOTONES DE REGLAS Y REGLA DE MOVIMIENTOS
                 tablero.reglasDelJuego.setBounds(700, 600, 200, 50);
@@ -67,13 +157,6 @@ public class Damas extends Applet {
                 tablero.reglasDeMovimientos.setForeground(Color.black);
                 add (tablero.reglasDeMovimientos);
                 
-                
-                
-                // CREANDO TITULO DEL JUEGO MEDIANTE UN BOTON 
-                //tablero.tituloJuego.setBounds(20,10, 645, 60);
-                //tablero.tituloJuego.setBackground(Color.BLACK);
-                //tablero.tituloJuego.setForeground(Color.WHITE);
-                //add (tablero.tituloJuego);
                 
                
               
@@ -89,29 +172,78 @@ public class Damas extends Applet {
                
               
                
-               
-               // CREACION PANEL DENTRO DE MENSAJES
-               //tablero.DentroPanelMensajes.setBounds(25,675,635,115); 
-               //tablero.DentroPanelMensajes.setBackground(Color.BLACK);
-               //add (tablero.DentroPanelMensajes);
-                // CREACION PANEL DE MENSAJES 
-               //tablero.panelMensajes.setBounds(20,670,645,125); 
-               //tablero.panelMensajes.setBackground(Color.white);
-               //add (tablero.panelMensajes);
-               
-               
                		
                 tablero.mensaje.setForeground(Color.green);
 		
                 tablero.mensaje.setFont(new Font("Serif", Font.ROMAN_BASELINE, 32));
 		add(tablero.mensaje);
                  }
-   
-   public void Start (){
-       
+   public void LimpiarElapplet (){ 
+       PañoLimpiador.setBackground(Color.green);
+       PañoLimpiador.setBounds(0, 0, 950, 670);
+       add (PañoLimpiador);
    }
+      
+    public void mouseReleased(MouseEvent evt) {
+	}
+
+    public void mouseClicked(MouseEvent evt) {
+	}
+
+	public void mouseEntered(MouseEvent evt) {
+	}
+
+	public void mouseExited(MouseEvent evt) {
+	} 
+    public void mousePressed(MouseEvent evt) {
+		}
+    
+    public void LimpiarPantalla () {
+         // CREACION BOTONES INICIAR JUEGO
+                botonIniciarJuego.setBackground(Color.WHITE);
+                botonIniciarJuego.setForeground(Color.BLACK);
+                botonIniciarJuego.setBounds(0, 0,50, 0);
+                add(botonIniciarJuego);
+               // FIN BOTON DE TITULO INICIAR JUEGO
+               // INICIO BOTON HUMANO CONTRA HUMANO 
+                HumanoContraHumano.setBackground(Color.white);
+                HumanoContraHumano.setForeground(Color.BLACK);
+                HumanoContraHumano.setBounds(0, 0, 0, 0);
+                HumanoContraHumano.addActionListener(this);
+                add (HumanoContraHumano);
+                //FIN BOTON HUMANO CONTRA HUMANO
+                // BOTON HUMANOCONTRA COMPUTADORA
+                 HumanoConComputadora.setBackground(Color.DARK_GRAY);
+                 HumanoConComputadora.setForeground(Color.WHITE);
+                 HumanoConComputadora.setBounds(0,0,0,0);
+                add (HumanoConComputadora);
+                // FIN BOTON HUMANO CONTRA COMPUTADORA
+                // LIENZO BAJO PANEL
+                 SuperiorPanel.setBackground(Color.BLACK);
+                 SuperiorPanel.setBounds(0, 0,0, 0);
+                  add (SuperiorPanel);
+
+
+
+                // CREACION DE PANELES.
+                PanelDeGrafica.setBackground(Color.WHITE);
+                PanelDeGrafica.setBounds( 0, 0, 0, 0);
+                add (PanelDeGrafica);  
+            setFont(new Font("Arial", Font.TRUETYPE_FONT, 16));
+    }
+ 
+ }
+    
+
+
+    
+       
+   
+
+
+  
     
                 
-}
+
    
    
