@@ -79,13 +79,18 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
         }else{
             if(src == botonAbandona){
                 rendirse();
-            }}
-        if (src == reglasDelJuego)
-            
-            JOptionPane.showMessageDialog(null, "REGLAS SON : LAS REGLAS SON: \n 1- HOLA \n 2-ETC");
-        else if (src== reglasDeMovimientos)
-            
-             JOptionPane.showMessageDialog(null, "REGLAS DE MOVIMIENTO : AWWSDQWDQ");
+            }else{
+                if(src == reglasDelJuego){
+                    JOptionPane.showMessageDialog(null, "REGLAS SON : LAS REGLAS SON: \n 1- HOLA \n 2-ETC");
+                }else{
+                    if(src== reglasDeMovimientos){
+                        JOptionPane.showMessageDialog(null, "REGLAS DE MOVIMIENTO : AWWSDQWDQ");
+                    }
+                }
+            }
+        }
+        
+        
     
     
     }
@@ -327,7 +332,7 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
 			}
 			/*Cuando seleccionamos la pieza ese cuadrado tiene un borde amarillo*/
 			if (filaSeleccionada >= 0) {
-				g.setColor(Color.yellow);//Ficha seleccionada
+				g.setColor(Color.BLUE);//Ficha seleccionada
 				g.drawRect(2 + columnaSeleccionada * 80, 2 + filaSeleccionada * 80, 77, 77);
 				g.drawRect(3 + columnaSeleccionada * 80, 3 + filaSeleccionada * 80, 77, 77);/*Se dibujan
                                 dos contornos para que se vea mejor*/
