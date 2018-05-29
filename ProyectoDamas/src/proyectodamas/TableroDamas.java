@@ -332,16 +332,16 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
 			}
 			/*Cuando seleccionamos la pieza ese cuadrado tiene un borde amarillo*/
 			if (filaSeleccionada >= 0) {
-				g.setColor(Color.BLUE);//Ficha seleccionada
+				g.setColor(Color.yellow);//Ficha seleccionada
 				g.drawRect(2 + columnaSeleccionada * 80, 2 + filaSeleccionada * 80, 77, 77);
 				g.drawRect(3 + columnaSeleccionada * 80, 3 + filaSeleccionada * 80, 77, 77);/*Se dibujan
                                 dos contornos para que se vea mejor*/
-				g.setColor(Color.orange);//Color de los movimientos legales.
+				g.setColor(Color.BLUE);//Color de los movimientos legales.
 				for (int i = 0; i < movimientosLegales.length; i++) {
 					if (movimientosLegales[i].de_Columna == columnaSeleccionada
 							&& movimientosLegales[i].de_Fila == filaSeleccionada)
 						g.drawRect(2 + movimientosLegales[i].a_Columna * 80,
-								2 + movimientosLegales[i].a_Fila * 80, 77, 77);/*Se dibujan los
+								2 + movimientosLegales[i].a_Fila * 80, 78, 78);/*Se dibujan los
                                         movimientos legales*/
 				}
 			}
