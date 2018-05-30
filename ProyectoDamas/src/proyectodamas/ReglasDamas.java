@@ -139,7 +139,7 @@ public class ReglasDamas  {
                 manera que en los saltos, y se guardan en el vector de movimientos.
 		 */
 
-		if (movimientos.isEmpty()) { // PODEMOS PONER QUE ES VACIO CON ESE METODO O SIMPLEMENTE ASIGNARLE 0.
+		if (movimientos.size() == 0) { // PODEMOS PONER QUE ES VACIO CON ESE METODO O SIMPLEMENTE ASIGNARLE 0.
 			for (int fila = 0; fila < 8; fila++) {
 				for (int columna = 0; columna < 8; columna++) {
 					if (tablero[fila][columna] == jugador || tablero[fila][columna] == jugadorRey) {
@@ -197,7 +197,7 @@ public class ReglasDamas  {
 		else
 			rey_del_Jugador = rey_negro;
                 
-		Vector movimientos_almacenados = new Vector();  // los movimientos de La ficha Seleccionada se van a almacenar el un vector
+		Vector movimientos_almacenados = new Vector();  // los movimientos de La ficha Seleccionada se van a almacenar en un vector
                 // se crea un vector dinamico debido a que no sabemos cuantos elementos (movimientos) se puedan llegar a generar.
 		if (tablero[fila][columna] == jugador || tablero[fila][columna] == rey_del_Jugador) { //  AHORA ANALIZAMOS EL MOVIMIENTO CON EL METODO DE PUEDE SALTAR
                 // SI LA CONDICION RESULTA VAMOS A AÑADIR UN ELEMENTO AL VECTOR DE LOS MOVIMIENTOS ALMACENADOS.
@@ -226,28 +226,28 @@ public class ReglasDamas  {
 			int columna_3) {
 		
             /* 
-             EN ESTE METODO VAMOS A HACER QUE ANALIZE SI SE VA A PODER SALTAR  , VAMOS A PASAR COMO PARAMETRO EL JUGADOR SEA BLANCO O NEGRO
+             EN ESTE METODO VAMOS A HACER QUE ANALIZE SI SE VA A PODER SALTAR  , VAMOS A PASAR COMO PARAMETRO EL JUGADOR SEA ROJO O NEGRO
             Y 3 LUGARES A ANALIZAR , LA POSICION ACTUAL  LA POSICION A LA QUE SE QUIERE SALTAR  Y LA POSICION QUE QUEDA EN EL MEDIO DEL SALTO
              
             */
 
-		if (fila_3 < 0 || fila_3 >= 8 || columna_3 < 0 || columna_3 >= 8) // LO PRIMERO A HACER ES VER QUE EL MOVIMIENTO DE LA FICHA NO SE QUIERA SALIR DE LA MATRIZ
-			return false; 
+		if (fila_3 < 0 || fila_3 >= 8 || columna_3 < 0 || columna_3 >= 8){ // LO PRIMERO A HACER ES VER QUE EL MOVIMIENTO DE LA FICHA NO SE QUIERA SALIR DE LA MATRIZ
+			return false; }
                 // LA FILA 3 Y COLUMNA 3 SON LAS QUE VAMOS A ANALIZAR  
                  // POR LO TANTO ANALIZAMOS SI  ES MENOR A 0 O MAYOR IGUAL A 8 AL IGUAL QUE LAS COLUMNAS
                 // EL MOVMIENTO NO SERA POSIBLE PORQUE VA DESDE  0-7 LA MATRIZ Y DE 0-7 LAS COLUMNAS. POR LO TANTO CON QUE UNA CONDICION CUMPLA DE QUE 
-                // SE EXEDE DE LOS LIMITES VAMOS A RETORNAR UN BOOLEAN DE FALSO PARA QUE NO PUEDA SALTAR.
-		if (tablero[fila_3][columna_3] != esp_vacio)
-			return false; // RETORNAMOS FALSO PORQUE SI NO HAY ESPACIO VACIO , SE CONSIDERA QUE HAY FICHA
+                // SE EXCEDE DE LOS LIMITES VAMOS A RETORNAR UN BOOLEAN DE FALSO PARA QUE NO PUEDA SALTAR.
+		if (tablero[fila_3][columna_3] != esp_vacio){
+			return false; }// RETORNAMOS FALSO PORQUE SI NO HAY ESPACIO VACIO , SE CONSIDERA QUE HAY FICHA
                 // SI EL JUGADOR ES ROJO VAMOS A CONSIDERAR EL MOVIMIENTO PARA LAS ROJAS.
 		if (jugador == rojo) {
                                   if (tablero[fila_1][columna_1] == rojo && fila_3 > fila_1){ // SI LA POSICION DEL TABLERO EN LA QUE ESTA ES IGUAL A VALOR ROJO
-                                // Y LA FILA 3 ES MAYOR EN VALOR A LA 1 VAMOS A ASUMIR QUE LA ROJA SOLO PUEDE MOVERSE UN LUGAR
+                                // Y LA FILA 3 ES MAYOR EN VALOR A LA 1. 
 				return false;} // RETORNAMOS FALSO PORQUE LA PIEZA ROJA SOLO SE MUEVE HACIA ARRIBA 
                                 // AHORA TOCA ANALIZAR LA FILA 2 Y COLUMNA DOS , SABIENDO QUE NO ES NEGRA Y TAMPOCO ES UNA REY DE LA FICHA NEGRA VAMOS A CONSIDERAR
                                 // QUE NO HAY UNA PIEZA NEGRA PARA PODER SALTAR
-                                    { 
-                                    if (tablero[fila_2][columna_2] != negro && tablero[fila_2][columna_2] != rey_negro)
+                                     
+                                    if (tablero[fila_2][columna_2] != negro && tablero[fila_2][columna_2] != rey_negro){
 				   return false;} // RETORNAMOS FALSO PORQUE NO HAY PIEZA QUE SEA NEGRA PARA SALTAR
                         
                         return true; }  // EL SALTO ES LEGAL.
@@ -271,7 +271,7 @@ public class ReglasDamas  {
              
 
 		if (fila_2 < 0 || fila_2 >= 8 || columna_2 < 0 || columna_2 >= 8) // COMO EL METODO DE SALTO ANALIZAMOS LA POSIBILIDAD DE QUE EN ESTE CASO EL 
-                    // MOVIMIENTO QUE VA A EJECUTAR NO SEA FUERA DEL TABLERO POR LO TANTO ANALIZAMOS QUE SEA MAYOR A 0 Y MENOR A 8 EN LOS CASOS 
+                    // MOVIMIENTO QUE VA A EJECUTAR NO SEA FUERA DEL TABLERO POR LO TANTO ANALIZAMOS QUE SEA MAYOR IGUAL A 0 Y MENOR A 8 EN LOS CASOS 
                     // DE LA FILA Y COLUMNA
 			return false; // RETORNAMOS FALSO EL MOVIMIENTO
 
@@ -282,14 +282,14 @@ public class ReglasDamas  {
 
 		if (jugador == rojo) {
 			
-                                if (tablero[fila_1][columna_1] == rojo && fila_2 > fila_1)
-				return false; // SE FIJA SI EL MOVIMIENTO ES HACIA ABAJO
+                                if (tablero[fila_1][columna_1] == rojo && fila_2 > fila_1){
+				return false;} // SE FIJA SI EL MOVIMIENTO ES HACIA ABAJO(ROJAS MUEVEN HACIA ARRIBA)
 			        
-                        return true; // EL MOVIMIENTOES LEGAL
+                        return true; // EL MOVIMIENTO ES LEGAL
 		}   
                          else {
-                                if (tablero[fila_1][columna_1] == negro && fila_2 < fila_1)
-				return false; //NEGRAS SOLO MUEVEN HACIA ARRIBA
+                                if (tablero[fila_1][columna_1] == negro && fila_2 < fila_1){
+				return false; }//NEGRAS MUEVEN HACIA ARRIBA(FALSO)
                         
                         
                return true; // EL MOVIMIENTO ES LEGAL.

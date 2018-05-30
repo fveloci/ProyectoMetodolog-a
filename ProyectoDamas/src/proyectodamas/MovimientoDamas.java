@@ -25,6 +25,6 @@ public class MovimientoDamas {
 		/*Se testea si el movimiento es un salto. Para un salto
         la ficha debe moverse dos filas hacia abajo(-2) en el caso de la fichas negras
         y hacia arriba(2) en el caso de las rojas */
-		return (de_Fila - de_Columna == 2 || a_Fila - a_Columna == -2);
+		return (de_Fila - a_Columna == 2 || de_Fila - a_Columna == -2);
 	}
 }
