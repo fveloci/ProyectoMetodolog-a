@@ -1,10 +1,12 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package proyectodamas;
 
 import java.awt.Button;
-import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Label;
@@ -15,8 +17,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JOptionPane;
 
-
-public class TableroDamas extends Damas implements ActionListener, MouseListener  {
+/**
+ *
+ * @author VELOCI
+ */
+public class TableroDamasComputadora extends Damas implements ActionListener,MouseListener {
     //SE DECLARAN LOS BOTONES NUEVO Y ABANDONA 
     Button botonNuevoJuego;
     Button botonAbandona;
@@ -41,7 +46,7 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
     ficha seleccionada por el jugador.*/
     MovimientoDamas movimientosLegales[];/*Es un array que nos muestra los movimiento legales de la
     ficha seleccionada.*/
-    public TableroDamas() { //CONSTRUCTOR
+    public TableroDamasComputadora() { //CONSTRUCTOR
 		
     /*Crea los botones y la etiqueta de "mensaje".Espera a los clicks de MOUSE y clicks
         en los botones. Ademas creamos el tablero y la primera partida.*/
@@ -87,9 +92,7 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
                     }
                 if(src == menuPrincipal){
                          
-                          
-                         
-                       }
+                          }
         }
                 
             
@@ -138,7 +141,7 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
         
         
         void hacerClickEnUnCuadrado (int fila, int columna){
-            // Este METODO VA A SER LLAMADO POR mousePressed(), cuando un jugador haga click en un cuadrado especifico en una Fila y Columna. Si se compruba
+             // Este METODO VA A SER LLAMADO POR mousePressed(), cuando un jugador haga click en un cuadrado especifico en una Fila y Columna. Si se compruba
             // que el juego esta en progreso
             
             /*
@@ -193,8 +196,24 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
 
 		mensaje.setText("SELECCIONE UNA PIEZA QUE PUEDA MOVER LEGALMENTE Y CONCUERDE CON SU TURNO");
 
+               
         }
-        
+      void moverNegra(){
+          if(movimientosLegales.length == 1){
+          
+             
+                   hacerMovimiento(movimientosLegales[0]);
+                  
+                   repaint();
+                   			return;
+          }else{
+          int random =(int)(Math.random()*movimientosLegales.length);
+                   
+                   
+                   hacerMovimiento(movimientosLegales[random]);
+                   repaint();
+                   			return;}
+      }  
       void hacerMovimiento ( MovimientoDamas mueve) {
 		
 		tablero.hacerMovimiento(mueve);   // SE PROCEDE A EJECUTAR EL METODO DE HACER MOVIMIENTOS , PASANDO COMO PARAMETRO EL OBJETO MUEVE
@@ -223,16 +242,18 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
                    jugadorActual = ReglasDamas.negro; // SE PROCEDE A CAMBIAR EL TURNO
 	            movimientosLegales = tablero.getMovimientosLegales (jugadorActual);// Y OBTENER LOS MOVIMIENTOS LEGALES DEL JUGADOR ACTUAL.
 			
-                    if (movimientosLegales == null) // SI NO HAY MOVIMIENTOS LEGALES SIGNIFICA QUE O HAY PIEZAS BLOQUEADAS EN SU TOTALIDAD O NO HAY MOVIMIENTO
+                    if (movimientosLegales == null){ // SI NO HAY MOVIMIENTOS LEGALES SIGNIFICA QUE O HAY PIEZAS BLOQUEADAS EN SU TOTALIDAD O NO HAY MOVIMIENTO
 				gameOver("NEGRO NO TIENE MOVIMIENTOS, EL ROJO ES EL GANADOR");
-			
-                    else if (movimientosLegales[0].esSalto()) // SINO SI EL UNICO MOVIMIENTO QUE TIENE ES UN SALTO SE LO OBLIGA A COMER .
-				
-                        mensaje.setText("NEGRO DEBE SALTAR");
-			
-                    else // SINO SI HAY MAS DE DOS MOVIMIENTOS Y NO ES NULO EL ARRAY , SIGNIFICA QUE TIENE MAS DE 1 POSIBILIDAD DE MOVER LIBREMENTE.
-				mensaje.setText("NEGRO DEBE MOVER");
-		} 
+                    }
+//                    else if (movimientosLegales[0].esSalto()) // SINO SI EL UNICO MOVIMIENTO QUE TIENE ES UN SALTO SE LO OBLIGA A COMER .
+//				
+//                        mensaje.setText("NEGRO DEBE SALTAR");
+//			
+//                    else // SINO SI HAY MAS DE DOS MOVIMIENTOS Y NO ES NULO EL ARRAY , SIGNIFICA QUE TIENE MAS DE 1 POSIBILIDAD DE MOVER LIBREMENTE.
+//				mensaje.setText("NEGRO DEBE MOVER");
+		moverNegra();
+                        
+                } 
                 else { // SE PROCEDE A REALIZAR LA MISMA SECUENCIA SINO QUE PARA LAS PIEZAS ROJAS.
 			jugadorActual = ReglasDamas.rojo;
 			movimientosLegales = tablero.getMovimientosLegales(jugadorActual);
@@ -275,7 +296,7 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
       
       
       public void update(Graphics g) {
-		// Este metodo dibuja completamente el tablero.
+		// Este metodo dibuja completamente el tablero actualizado para no provocar fallos.
 		paint(g);
 	}
      public void paint(Graphics g) {
@@ -367,7 +388,8 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
 		
                
 	}
-    }
+	}
+
 	public void mouseReleased(MouseEvent evt) {
 	}
 
@@ -380,16 +402,4 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
 	public void mouseExited(MouseEvent evt) {
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-}//Fin de la clase TABLERO DAMAS
+}
