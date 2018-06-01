@@ -49,7 +49,7 @@ public class ReglasDamas  {
 			}
 		}
     }
-        public int posicionPieza(int fila, int columna) {
+    public int posicionPieza(int fila, int columna) {
 		//devuelve el valor de lo que se encuentra en esa posición
 		return tablero[fila][columna];
 	}

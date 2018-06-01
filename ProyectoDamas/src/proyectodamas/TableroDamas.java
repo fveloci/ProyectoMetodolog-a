@@ -54,16 +54,15 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
 		botonAbandona.addActionListener(this);
 		botonNuevoJuego = new Button("NUEVO JUEGO");
 		botonNuevoJuego.addActionListener(this);
-		mensaje = new Label("", Label.RIGHT);
+		
 		tablero = new ReglasDamas();
                 reglasDelJuego = new Button ("Reglas De Juego");
                 reglasDelJuego.addActionListener(this);
                 reglasDeMovimientos= new Button ("Reglas De Movimientos");
-               
                 panelMensajes = new Panel ();
                 DentroPanelMensajes= new Panel ();
-                
-                
+                mensaje= new Label("MENSAJES", Label.RIGHT);
+                add(mensaje);
                 CajaTiempo= new Button ("TIEMPO DE JUEGO :");
                 
                 
@@ -76,28 +75,30 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
         Object src = eventoClick.getSource();
         if(src == botonNuevoJuego){
             nuevoJuego();
-        }else{
+        }
             if(src == botonAbandona){
                 rendirse();
-            }else{
+            }
                 if(src == reglasDelJuego){
                     JOptionPane.showMessageDialog(null, "LAS REGLAS SON: \n 1- HOLA \n 2-ETC");
-                }else{
+                }
                     if(src == reglasDeMovimientos){
                         JOptionPane.showMessageDialog(null, "REGLAS DE MOVIMIENTO : AWWSDQWDQ");
-                    }else{
-                        if(src == menuPrincipal){
-                            LimpiarPantalla();
-                        }
                     }
-                }
-            }
+                if(src == menuPrincipal){
+                         
+                          
+                         
+                       }
         }
+                
+            
+        
         
         
     
     
-    }
+    
     
     
 	public void nuevoJuego(){//Empieza un nuevo juego.
@@ -112,6 +113,7 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
 		juegoEnProgreso = true;
 		botonNuevoJuego.setEnabled(false);
 		botonAbandona.setEnabled(true);
+                
 		repaint();
             }
         public void rendirse() {
@@ -283,10 +285,7 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
                 .*/
                 
 		/* Borde al rededor del tablero.*/
-
-                
-                
-             
+              
 		g.setColor(Color.black);
 		g.drawRect(0, 0, getSize().width - 1, getSize().height - 1);
 		g.drawRect(1, 1, getSize().width - 3, getSize().height - 3);
@@ -349,7 +348,9 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
                                         movimientos legales*/
 				}
 			}
+                             
 }
+                
      }//FIN paint()
     public void mousePressed(MouseEvent evt) {
 		/* Responde a un click.Si no hay juego, no se puede clikear(muestra mensaje).
