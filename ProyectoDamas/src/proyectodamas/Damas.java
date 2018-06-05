@@ -21,6 +21,9 @@ public class Damas extends Applet implements ActionListener, MouseListener {
     Panel SuperiorPanel;
     Panel PañoLimpiador;
     Button menuPrincipal;
+    public Damas (){ } // CONSTRUCTOR
+    
+    public static final Color MarronTabla = new Color(139,69,19);// creacion del color marronTabla
 
     public void actionPerformed(ActionEvent eventoClick) {
         //Realiza acciones de acuerdo al boton que se clickee.
@@ -45,9 +48,11 @@ public class Damas extends Applet implements ActionListener, MouseListener {
     public void start() {  // con el metodo INIT sobreescrito desde applet , Inicializamos la ventana, que contendra el awt del juego. 
 
         PañoLimpiador = new Panel();
-        botonIniciarJuego = new Button("-BIENVENIDO A DAMAS INGLESAS-");
-        HumanoContraHumano = new Button(" 1VS 1");
-        HumanoConComputadora = new Button(" 1 VS IA");
+        botonIniciarJuego = new Button(" ╔═════════════════════════╗ \n" +
+"                     ║ DAMAS INGLESAS ║ \n" +
+"                     ╚═════════════════════════╝");
+        HumanoContraHumano = new Button(" ║1VS 1║");
+        HumanoConComputadora = new Button(" ║1 VS PC║");
         PanelDeGrafica = new Panel();
         SuperiorPanel = new Panel();
         // CREACION BOTONES INICIAR JUEGO
@@ -79,12 +84,11 @@ public class Damas extends Applet implements ActionListener, MouseListener {
         PanelDeGrafica.setBackground(Color.WHITE);
         PanelDeGrafica.setBounds(10, 10, 900, 600);
         add(PanelDeGrafica);
-
-        Frame c = (Frame) this.getParent().getParent(); // DAMOS TITULO AL JUEGO
-        c.setTitle("DAMAS BETA 0.01");
+        //Frame c = (Frame) this.getParent().getParent(); // DAMOS TITULO AL JUEGO
+        //c.setTitle("DAMAS BETA 0.01");
         setSize(950, 650); // DAMOS ANCHO Y ALTO  A LA VENTANA DEL APPLET
         setLayout(null);  // SETEAMOS UN LAYOUT SIN DEFINIR PARA QUE INICIE
-        setBackground(Color.GREEN.darker());// LE DAMOS UN FONDO AL APPLET
+        setBackground(Damas.MarronTabla);// LE DAMOS UN FONDO AL APPLET
         //addMouseListener(this);
         setFont(new Font("Arial", Font.ROMAN_BASELINE, 36));
 
@@ -94,9 +98,9 @@ public class Damas extends Applet implements ActionListener, MouseListener {
 
         menuPrincipal = new Button("MENU PRINCIPAL");
         menuPrincipal.addActionListener(this);
-        setSize(950, 670); // DAMOS ANCHO Y ALTO  A LA VENTANA DEL APPLET
+        setSize(950, 720); // DAMOS ANCHO Y ALTO  A LA VENTANA DEL APPLET
         setLayout(null);  // SETEAMOS UN LAYOUT SIN DEFINIR PARA QUE INICIE
-        setBackground(Color.blue.darker());// LE DAMOS UN FONDO AL APPLET
+        setBackground(Damas.MarronTabla);// LE DAMOS UN FONDO AL APPLET
         Frame c = (Frame) this.getParent().getParent(); // DAMOS TITULO AL JUEGO
         c.setTitle("DAMAS BETA 0.01");
         // CREACION DE TABLERO
@@ -109,9 +113,10 @@ public class Damas extends Applet implements ActionListener, MouseListener {
         add(tablero.mensaje);
 
         // CREO LA CAJA PARA PONEER EL TIEMPO DE JUEGO :
-        tablero.CajaTiempo.setBounds(700, 210, 200, 50);
-        tablero.CajaTiempo.setBackground(Color.WHITE);
-        tablero.CajaTiempo.setForeground(Color.BLACK);
+        tablero.CajaTiempo.setBounds(20, 670, 645, 50);
+        tablero.CajaTiempo.setBackground(Color.white);
+        tablero.CajaTiempo.setForeground(Color.black);
+        tablero.CajaTiempo.setFont(new Font("Arial", Font.TRUETYPE_FONT, 14));
         add(tablero.CajaTiempo);
 
         // CREACION BOTON NUEVO JUEGO
@@ -161,11 +166,12 @@ public class Damas extends Applet implements ActionListener, MouseListener {
 
     }
 public void ComenzarComputadora(){
-     menuPrincipal = new Button("MENU PRINCIPAL");
+    
+        menuPrincipal = new Button("MENU PRINCIPAL");
         menuPrincipal.addActionListener(this);
-        setSize(950, 670); // DAMOS ANCHO Y ALTO  A LA VENTANA DEL APPLET
+        setSize(950, 720); // DAMOS ANCHO Y ALTO  A LA VENTANA DEL APPLET
         setLayout(null);  // SETEAMOS UN LAYOUT SIN DEFINIR PARA QUE INICIE
-        setBackground(Color.GREEN.darker());// LE DAMOS UN FONDO AL APPLET
+        setBackground(Damas.MarronTabla);// LE DAMOS UN FONDO AL APPLET
         Frame c = (Frame) this.getParent().getParent(); // DAMOS TITULO AL JUEGO
         c.setTitle("DAMAS BETA 0.01");
         // CREACION DE TABLERO
@@ -173,15 +179,15 @@ public void ComenzarComputadora(){
         tablero.setBounds(20, 15, 645, 645);  // PROCEDEMOS A DAR LIMITES , Y LUGAR DE POSICION DE CADA OBJETO
         add(tablero);// AGREGAMOS EL OBJETO A INIT
 
-        tablero.mensaje.setForeground(Color.red);
-        tablero.mensaje.setFont(new Font("Serif", Font.TRUETYPE_FONT, 32));
-        add(tablero.mensaje);
-
+        
+        
         // CREO LA CAJA PARA PONEER EL TIEMPO DE JUEGO :
-        tablero.CajaTiempo.setBounds(700, 210, 200, 50);
-        tablero.CajaTiempo.setBackground(Color.WHITE);
-        tablero.CajaTiempo.setForeground(Color.BLACK);
+        tablero.CajaTiempo.setBounds(20, 670, 645, 50);
+        tablero.CajaTiempo.setBackground(Color.white);
+        tablero.CajaTiempo.setForeground(Color.black);
+        tablero.CajaTiempo.setFont(new Font("Arial", Font.TRUETYPE_FONT, 14));
         add(tablero.CajaTiempo);
+        
 
         // CREACION BOTON NUEVO JUEGO
         tablero.botonNuevoJuego.setBounds(700, 90, 200, 50);

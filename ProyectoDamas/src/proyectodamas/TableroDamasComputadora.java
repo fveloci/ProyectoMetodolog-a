@@ -1,10 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package proyectodamas;
-
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Font;
@@ -17,16 +11,15 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author VELOCI
- */
+
 public class TableroDamasComputadora extends Damas implements ActionListener,MouseListener {
-    //SE DECLARAN LOS BOTONES NUEVO Y ABANDONA 
+  
+    
+
+//SE DECLARAN LOS BOTONES NUEVO Y ABANDONA 
     Button botonNuevoJuego;
     Button botonAbandona;
     Button CajaTiempo;
-   
     Panel panelDeJuego;
     Panel DentroPanelDeJuego;
     Panel panelMensajes;
@@ -68,7 +61,9 @@ public class TableroDamasComputadora extends Damas implements ActionListener,Mou
                 DentroPanelMensajes= new Panel ();
                 mensaje= new Label("MENSAJES", Label.RIGHT);
                 add(mensaje);
-                CajaTiempo= new Button ("TIEMPO DE JUEGO :");
+                CajaTiempo= new Button ("MENSAJES");
+                
+                
                 
                 
                 
@@ -112,7 +107,7 @@ public class TableroDamasComputadora extends Damas implements ActionListener,Mou
             movimientos legales para las fichas rojas.*/
 															// moves.
 		filaSeleccionada = -1; // Si no se selecciona una ficha roja la fila es igual a -1.
-		mensaje.setText("TURNO FICHAS ROJAS");
+		CajaTiempo.setLabel("TURNO FICHAS ROJAS");
 		juegoEnProgreso = true;
 		botonNuevoJuego.setEnabled(false);
 		botonAbandona.setEnabled(true);
@@ -132,7 +127,7 @@ public class TableroDamasComputadora extends Damas implements ActionListener,Mou
         void gameOver(String string) {
 		/* JUEGO TERMINADO. El parametro "string" mostrara un mensaje en pantalla
             al usuario. Los botones se mostraran de acuerdo a las posibilidades.*/
-		mensaje.setText(string);
+		CajaTiempo.setLabel(string);
 		botonNuevoJuego.setEnabled(true);
 		botonAbandona.setEnabled(false);
 		juegoEnProgreso = false;
@@ -155,9 +150,9 @@ public class TableroDamasComputadora extends Damas implements ActionListener,Mou
 				columnaSeleccionada = columna;
 				
                                 if (jugadorActual == ReglasDamas.rojo)
-					mensaje.setText("ROJO DEBE DE MOVER");
+					CajaTiempo.setLabel("ROJO DEBE DE MOVER");
 				else
-					mensaje.setText("NEGRO DEBE DE MOVER");
+					CajaTiempo.setLabel("NEGRO DEBE DE MOVER");
 				repaint();
 				return;
 			}
@@ -168,7 +163,7 @@ public class TableroDamasComputadora extends Damas implements ActionListener,Mou
             */
 
 		if (filaSeleccionada < 0) {
-			mensaje.setText("SELECCIONE UNA PIEZA Y REALIZE UN MOVIMIENTO");
+			CajaTiempo.setLabel("SELECCIONE UNA PIEZA Y REALIZE UN MOVIMIENTO");
 			return;
 		}
 
@@ -194,7 +189,7 @@ public class TableroDamasComputadora extends Damas implements ActionListener,Mou
                 // SI NUNGA CONDICION SE CUMPLE ESTAMOS SABIENDO QUE EL JUGADOR CLICKEA EN UN CUADRADO DONDE NO HAY PIEZA QUE LE PERTENESCA PARA MOVER
                 // Y SI LE PERTENECE PERO NO PUEDE SER MOVIDA SE LE DARA EL MISMO MENSAJE
 
-		mensaje.setText("SELECCIONE UNA PIEZA QUE PUEDA MOVER LEGALMENTE Y CONCUERDE CON SU TURNO");
+		CajaTiempo.setLabel("SELECCIONE UNA PIEZA QUE PUEDA MOVER LEGALMENTE Y CONCUERDE CON SU TURNO");
 
                
         }
@@ -217,17 +212,23 @@ public class TableroDamasComputadora extends Damas implements ActionListener,Mou
       void hacerMovimiento ( MovimientoDamas mueve) {
 		
 		tablero.hacerMovimiento(mueve);   // SE PROCEDE A EJECUTAR EL METODO DE HACER MOVIMIENTOS , PASANDO COMO PARAMETRO EL OBJETO MUEVE
-                if (mueve.esSalto()) { // SI EL MOVIMIENTO ES UN SALTO , DEBEMOS VER LA POSIBILIDAD  DE QUE LA FICHA SIGA REALIZANDO OTRO SALTO
+                if (mueve.esSalto() ) { // SI EL MOVIMIENTO ES UN SALTO , DEBEMOS VER LA POSIBILIDAD  DE QUE LA FICHA SIGA REALIZANDO OTRO SALTO
 			
                     movimientosLegales = tablero.getSaltosLegalesDesde(jugadorActual, mueve.a_Fila, // VUELVE A VERIFICAR YA MOVIDA LA PIEZA SI 
 		    mueve.a_Columna);// HAY OTRO SALTO LEGAL PARA REALIZAR.
+                  
 			
                     if (movimientosLegales != null) { // SI EL ARREGLO INDICA QUE HAY MOVIMIENTOS LEGALES
 				
                               if (jugadorActual == ReglasDamas.rojo) // VERIFICAMOS QUIEN ES EL JUGADOR ACTUAL Y REALIZAMOS EL MENSAJE DE QUE DEBE SEGUIR SALTANDO
-				mensaje.setText("ROJO DEBE SEGUIR REALIZANDO SALTO");
-                                      else
-					mensaje.setText("NEGRAS DEBEN SEGUIR REALIZANDO SALTO");
+				CajaTiempo.setLabel("ROJO DEBE SEGUIR REALIZANDO SALTO");
+                              else{
+                                    movimientosLegales = tablero.getSaltosLegalesDesde(jugadorActual, mueve.a_Fila, // VUELVE A VERIFICAR YA MOVIDA LA PIEZA SI 
+		    mueve.a_Columna);// HAY OTRO SALTO LEGAL PARA REALIZAR.
+                                    moverNegra();
+                              
+					CajaTiempo.setLabel("NEGRAS DEBEN SEGUIR REALIZANDO SALTO");
+                                        
                                  
                                       filaSeleccionada = mueve.a_Fila; //AHORA AL CUMPLIR ESTA CONDICION VOLVEMOS A PASAR LOS PARAMETROS PARA REALIZAR MOVIMIENTO
 				      columnaSeleccionada= mueve.a_Columna; // PASAMOS FILA Y COLUMNA .
@@ -235,34 +236,44 @@ public class TableroDamasComputadora extends Damas implements ActionListener,Mou
 				return;
 			}
 		}
+                    }
 
 
 		if (jugadorActual == ReglasDamas.rojo) { // SI EL JUGADOR ACTUAL ES EL ROJO
                     
                    jugadorActual = ReglasDamas.negro; // SE PROCEDE A CAMBIAR EL TURNO
 	            movimientosLegales = tablero.getMovimientosLegales (jugadorActual);// Y OBTENER LOS MOVIMIENTOS LEGALES DEL JUGADOR ACTUAL.
-			
+		   
                     if (movimientosLegales == null){ // SI NO HAY MOVIMIENTOS LEGALES SIGNIFICA QUE O HAY PIEZAS BLOQUEADAS EN SU TOTALIDAD O NO HAY MOVIMIENTO
 				gameOver("NEGRO NO TIENE MOVIMIENTOS, EL ROJO ES EL GANADOR");
                     }
-//                    else if (movimientosLegales[0].esSalto()) // SINO SI EL UNICO MOVIMIENTO QUE TIENE ES UN SALTO SE LO OBLIGA A COMER .
-//				
-//                        mensaje.setText("NEGRO DEBE SALTAR");
-//			
-//                    else // SINO SI HAY MAS DE DOS MOVIMIENTOS Y NO ES NULO EL ARRAY , SIGNIFICA QUE TIENE MAS DE 1 POSIBILIDAD DE MOVER LIBREMENTE.
-//				mensaje.setText("NEGRO DEBE MOVER");
+                    else if (movimientosLegales[0].esSalto()) // SINO SI EL UNICO MOVIMIENTO QUE TIENE ES UN SALTO SE LO OBLIGA A COMER .
+				
+                       CajaTiempo.setLabel("NEGRO DEBE SALTAR");
+			
+                    else // SINO SI HAY MAS DE DOS MOVIMIENTOS Y NO ES NULO EL ARRAY , SIGNIFICA QUE TIENE MAS DE 1 POSIBILIDAD DE MOVER LIBREMENTE.
+				CajaTiempo.setLabel("NEGRO DEBE MOVER");
+                if(movimientosLegales.length!=0){
+                    
+                
 		moverNegra();
+                
+                   
+                   }
+                
+                
+                }
                         
-                } 
+                
                 else { // SE PROCEDE A REALIZAR LA MISMA SECUENCIA SINO QUE PARA LAS PIEZAS ROJAS.
 			jugadorActual = ReglasDamas.rojo;
 			movimientosLegales = tablero.getMovimientosLegales(jugadorActual);
 			if (movimientosLegales == null)
 				gameOver("ROJO NO TIENE MOVIMIENTOS, LAS NEGRAS GANAN");
 			else if (movimientosLegales[0].esSalto())
-				mensaje.setText("ROJO DEBE SALTAR");
+				CajaTiempo.setLabel("ROJO DEBE SALTAR");
 			else
-				mensaje.setText("ROJO DEBE MOVER");
+				CajaTiempo.setLabel("ROJO DEBE MOVER");
 		}
 
 		
@@ -324,21 +335,32 @@ public class TableroDamasComputadora extends Damas implements ActionListener,Mou
 				case ReglasDamas.rojo:
 					g.setColor(Color.red);
 					g.fillOval(4 + columna * 80, 4 + fila * 80, 74, 74);
+                                        g.setColor(Color.LIGHT_GRAY);
+                                        g.drawOval(4 + columna * 80, 4 + fila * 80, 74, 74);
 					break;
 				case ReglasDamas.negro:
 					g.setColor(Color.BLACK);
 					g.fillOval(4 + columna * 80, 4 + fila * 80, 74, 74);
+                                          g.setColor(Color.LIGHT_GRAY);
+                                        g.drawOval(4 + columna * 80, 4 + fila * 80, 74, 74);
 					break;
 				case ReglasDamas.rey_rojo:
 					g.setColor(Color.red);
 					g.fillOval(4 + columna * 80, 4 + fila * 80, 74, 74);
+                                          g.setColor(Color.LIGHT_GRAY);
+                                        g.drawOval(4 + columna * 80, 4 + fila * 80, 74, 74);
 					g.setColor(Color.white);
 					g.drawString("*REY B*", 7 + columna * 80, 64 + fila * 78);
 					break;
 				case ReglasDamas.rey_negro:
 					g.setColor(Color.black);
+                                        
 					g.fillOval(4 + columna * 80, 4 + fila * 80, 74, 74);
+                                         g.setColor(Color.LIGHT_GRAY);
+                                        g.drawOval(4 + columna * 80, 4 + fila * 80, 74, 74);
+                                        
 					g.setColor(Color.white);
+                                       
 					g.drawString("*REY N*", 7 + columna * 80, 64 + fila * 78);
                                         
 					break;
@@ -377,7 +399,7 @@ public class TableroDamasComputadora extends Damas implements ActionListener,Mou
 		/* Responde a un click.Si no hay juego, no se puede clikear(muestra mensaje).
         Si no, busca la fila y columna seleccionada para manejarla con el metodo hacerClickEnUnCuadrado()*/
 		if (juegoEnProgreso == false)
-			mensaje.setText("DA CLICK EN -NUEVO JUEGO-");
+			CajaTiempo.setLabel("DA CLICK EN -NUEVO JUEGO-");
 		else {
                     
 			int columna = (evt.getX() - 2) / 80;
