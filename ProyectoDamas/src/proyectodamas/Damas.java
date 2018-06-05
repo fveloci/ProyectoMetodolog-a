@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JOptionPane;
+import java.applet.AudioClip;
+
 
 public class Damas extends Applet implements ActionListener, MouseListener {
 
@@ -21,6 +23,7 @@ public class Damas extends Applet implements ActionListener, MouseListener {
     Panel SuperiorPanel;
     Panel PañoLimpiador;
     Button menuPrincipal;
+    Button Musica;
     public Damas (){ } // CONSTRUCTOR
     
     public static final Color MarronTabla = new Color(139,69,19);// creacion del color marronTabla
@@ -42,6 +45,14 @@ public class Damas extends Applet implements ActionListener, MouseListener {
             ComenzarComputadora();
             
         }
+        if (src == Musica){
+            AudioClip musicaDeJuego;
+            musicaDeJuego= java.applet.Applet.newAudioClip(getClass().getResource("/proyectodamas/Musica1.wav"));
+            musicaDeJuego.play();
+            
+            
+        }
+            
 
     }
 
@@ -95,7 +106,10 @@ public class Damas extends Applet implements ActionListener, MouseListener {
     }
 
     public void Comenzar() {
-
+        Musica= new Button ("PLAY MUSICA");
+        Musica.setBounds(700, 220, 200, 50);
+        Musica.addActionListener(this);
+        add(Musica);
         menuPrincipal = new Button("MENU PRINCIPAL");
         menuPrincipal.addActionListener(this);
         setSize(950, 720); // DAMOS ANCHO Y ALTO  A LA VENTANA DEL APPLET
