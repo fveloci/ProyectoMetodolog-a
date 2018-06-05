@@ -43,12 +43,13 @@ public class Damas extends Applet implements ActionListener, MouseListener {
         if (src == HumanoConComputadora) {
             LimpiarPantalla();
             ComenzarComputadora();
-            
+           
         }
         if (src == Musica){
             AudioClip musicaDeJuego;
             musicaDeJuego= java.applet.Applet.newAudioClip(getClass().getResource("/proyectodamas/Musica1.wav"));
             musicaDeJuego.play();
+           
             
             
         }
@@ -180,7 +181,10 @@ public class Damas extends Applet implements ActionListener, MouseListener {
 
     }
 public void ComenzarComputadora(){
-    
+        Musica= new Button ("PLAY MUSICA");
+        Musica.setBounds(700, 220, 200, 50);
+        Musica.addActionListener(this);
+        add(Musica);
         menuPrincipal = new Button("MENU PRINCIPAL");
         menuPrincipal.addActionListener(this);
         setSize(950, 720); // DAMOS ANCHO Y ALTO  A LA VENTANA DEL APPLET
