@@ -14,10 +14,13 @@ import javax.swing.JOptionPane;
 import java.applet.AudioClip;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 
-public class Damas extends Applet implements ActionListener, MouseListener {
+public class Damas extends Applet implements ActionListener, MouseListener  {
 
     Button botonIniciarJuego;
     Button HumanoContraHumano;
@@ -27,13 +30,16 @@ public class Damas extends Applet implements ActionListener, MouseListener {
     Panel PañoLimpiador;
     Button menuPrincipal;
     Button Musica;
+    
     public Damas (){ 
     
     } // CONSTRUCTOR
+    AudioClip musicaDeJuego;
     
     public static final Color MarronTabla = new Color(76,47,39);// creacion del color marronTabla
-   
+     
     public void actionPerformed(ActionEvent eventoClick) {
+       
         //Realiza acciones de acuerdo al boton que se clickee.
         Object src = eventoClick.getSource();
         if (src == HumanoContraHumano) { // SI SE CLICKEA EN HUMANO CONTRA HUMANO LIMPIO LA PANTALLA DE UNA MANERA POCO ORTODOXA
@@ -51,9 +57,12 @@ public class Damas extends Applet implements ActionListener, MouseListener {
            
         }
         if (src == Musica){
-            AudioClip musicaDeJuego;
-            musicaDeJuego= java.applet.Applet.newAudioClip(getClass().getResource("/proyectodamas/Musica1.wav"));
-            musicaDeJuego.play();
+           
+        
+        musicaDeJuego= java.applet.Applet.newAudioClip(getClass().getResource("/proyectodamas/Musica1.wav"));
+        musicaDeJuego.stop();
+           musicaDeJuego.play();
+           
            
             
             
@@ -65,9 +74,9 @@ public class Damas extends Applet implements ActionListener, MouseListener {
     public void start() {  // con el metodo INIT sobreescrito desde applet , Inicializamos la ventana, que contendra el awt del juego. 
 
         PañoLimpiador = new Panel();
-        botonIniciarJuego = new Button(" ╔═════════════════════════╗ \n" +
-"                     ║ DAMAS INGLESAS ║ \n" +
-"                     ╚═════════════════════════╝");
+        botonIniciarJuego = new Button(" \n" +
+"                      DAMAS INGLESAS  \n" +
+"                    ");
         HumanoContraHumano = new Button(" ║1VS 1║");
         HumanoConComputadora = new Button(" ║1 VS PC║");
         PanelDeGrafica = new Panel();

@@ -3,8 +3,10 @@ import java.awt.Button;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Label;
 import java.awt.Panel;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -321,7 +323,10 @@ public class TableroDamasComputadora extends Damas implements ActionListener,Mou
                 utilizando un borde en el casillero correspondiente.
                 .*/
                 
+		super.paint(g);
 		/* Borde al rededor del tablero.*/
+              ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);   
               
 		g.setColor(Color.black);
 		g.drawRect(0, 0, getSize().width - 1, getSize().height - 1);

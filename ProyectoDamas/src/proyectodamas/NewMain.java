@@ -31,7 +31,7 @@ public class NewMain {
 
 
     //inicializar las variables al ancho y el alto de la tag <applet> 
-    int width = 1280; 
+    int width = 990; 
     int height = 750; 
     f.setSize(width, height); 
 

@@ -7,8 +7,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Label;
 import java.awt.Panel;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -287,9 +289,10 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
                 Si hay un juego en progreso lo que se dibujan son los movimientos legales 
                 utilizando un borde en el casillero correspondiente.
                 .*/
-                
+                super.paint(g);
 		/* Borde al rededor del tablero.*/
-              
+              ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);   
 		g.setColor(Color.black);
 		g.drawRect(0, 0, getSize().width - 1, getSize().height - 1);
 		g.drawRect(1, 1, getSize().width - 3, getSize().height - 3);
@@ -339,6 +342,7 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
 			}
 			/*Cuando seleccionamos la pieza ese cuadrado tiene un borde amarillo*/
 			if (filaSeleccionada >= 0) {
+                            
 				g.setColor(Color.yellow);//Ficha seleccionada
 				g.drawRect(2 + columnaSeleccionada * 80, 2 + filaSeleccionada * 80, 77, 77);
 				g.drawRect(3 + columnaSeleccionada * 80, 3 + filaSeleccionada * 80, 77, 77);/*Se dibujan
