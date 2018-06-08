@@ -1,5 +1,4 @@
 package proyectodamas;
-
 import java.applet.*;
 import java.awt.Button;
 import java.awt.Color;
@@ -31,6 +30,7 @@ public class Damas extends Applet implements ActionListener, MouseListener  {
     Button menuPrincipal;
     Button Musica;
     
+
     public Damas (){ 
     
     } // CONSTRUCTOR
@@ -38,6 +38,7 @@ public class Damas extends Applet implements ActionListener, MouseListener  {
     
     public static final Color MarronTabla = new Color(76,47,39);// creacion del color marronTabla
      
+
     public void actionPerformed(ActionEvent eventoClick) {
        
         //Realiza acciones de acuerdo al boton que se clickee.
@@ -57,12 +58,13 @@ public class Damas extends Applet implements ActionListener, MouseListener  {
            
         }
         if (src == Musica){
+
            
         
         musicaDeJuego= java.applet.Applet.newAudioClip(getClass().getResource("/proyectodamas/Musica1.wav"));
         musicaDeJuego.stop();
            musicaDeJuego.play();
-           
+
            
             
             
