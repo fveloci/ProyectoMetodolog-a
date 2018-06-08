@@ -255,7 +255,7 @@ public class TableroDamasComputadora extends Damas implements ActionListener,Mou
           return;
           }
       }
-      
+      //PRUEBA GITHUB ERRORES IGNORAR
       void hacerMovimiento ( MovimientoDamas mueve) {
 		
 		tablero.hacerMovimiento(mueve);   // SE PROCEDE A EJECUTAR EL METODO DE HACER MOVIMIENTOS , PASANDO COMO PARAMETRO EL OBJETO MUEVE
