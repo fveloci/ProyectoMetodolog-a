@@ -119,11 +119,14 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
         public void rendirse() {
 		//Si el jugador actual toca el boton, gana el contrario.
 		
-		if (jugadorActual == ReglasDamas.rojo)
+		if (jugadorActual == ReglasDamas.rojo){
                 
 			gameOver("El jugador ROJO se rinde. ¡GANAN LAS NEGRAS!");
-		else
+                JOptionPane.showMessageDialog(null,"El jugador ROJO se rinde. ¡GANAN LAS NEGRAS!");
+                }else{
 			gameOver("El jugador NEGRO se rinde. ¡GANAN LAS ROJAS!");
+                        JOptionPane.showMessageDialog(null,"El jugador NEGRO se rinde. ¡GANAN LAS ROJAS!");
+                }
 	}
         
         void gameOver(String string) {
@@ -165,7 +168,7 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
             */
 
 		if (filaSeleccionada < 0) {
-			CajaTiempo.setLabel("SELECCIONE UNA PIEZA Y REALIZE UN MOVIMIENTO");
+			CajaTiempo.setLabel("SELECCIONE UNA PIEZA Y REALICE UN MOVIMIENTO");
 			return;
 		}
 
@@ -223,10 +226,10 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
                    jugadorActual = ReglasDamas.negro; // SE PROCEDE A CAMBIAR EL TURNO
 	            movimientosLegales = tablero.getMovimientosLegales (jugadorActual);// Y OBTENER LOS MOVIMIENTOS LEGALES DEL JUGADOR ACTUAL.
 			
-                    if (movimientosLegales == null) // SI NO HAY MOVIMIENTOS LEGALES SIGNIFICA QUE O HAY PIEZAS BLOQUEADAS EN SU TOTALIDAD O NO HAY MOVIMIENTO
+                    if (movimientosLegales == null){ // SI NO HAY MOVIMIENTOS LEGALES SIGNIFICA QUE O HAY PIEZAS BLOQUEADAS EN SU TOTALIDAD O NO HAY MOVIMIENTO
 				gameOver("NEGRO NO TIENE MOVIMIENTOS, EL ROJO ES EL GANADOR");
-			
-                    else if (movimientosLegales[0].esSalto()) // SINO SI EL UNICO MOVIMIENTO QUE TIENE ES UN SALTO SE LO OBLIGA A COMER .
+			JOptionPane.showMessageDialog(null,"¡ROJAS GANAN!");
+                    }else if (movimientosLegales[0].esSalto()) // SINO SI EL UNICO MOVIMIENTO QUE TIENE ES UN SALTO SE LO OBLIGA A COMER .
 				
                         CajaTiempo.setLabel("NEGRO DEBE SALTAR");
 			
@@ -236,9 +239,10 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
                 else { // SE PROCEDE A REALIZAR LA MISMA SECUENCIA SINO QUE PARA LAS PIEZAS ROJAS.
 			jugadorActual = ReglasDamas.rojo;
 			movimientosLegales = tablero.getMovimientosLegales(jugadorActual);
-			if (movimientosLegales == null)
+			if (movimientosLegales == null){
 				gameOver("ROJO NO TIENE MOVIMIENTOS, LAS NEGRAS GANAN");
-			else if (movimientosLegales[0].esSalto())
+                                JOptionPane.showMessageDialog(null,"¡NEGRAS GANAN!");
+                        }else if (movimientosLegales[0].esSalto())
 				CajaTiempo.setLabel("ROJO DEBE SALTAR");
 			else
 				CajaTiempo.setLabel("ROJO DEBE MOVER");

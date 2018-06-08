@@ -117,11 +117,14 @@ public class TableroDamasComputadora extends Damas implements ActionListener,Mou
         public void rendirse() {
 		//Si el jugador actual toca el boton, gana el contrario.
 		
-		if (jugadorActual == ReglasDamas.rojo)
+		if (jugadorActual == ReglasDamas.rojo){
                 
 			gameOver("El jugador ROJO se rinde. ¡GANAN LAS NEGRAS!");
-		else
+                        JOptionPane.showMessageDialog(null,"El jugador ROJO se rinde. ¡GANAN LAS NEGRAS!");}
+                else{
 			gameOver("El jugador NEGRO se rinde. ¡GANAN LAS ROJAS!");
+                        JOptionPane.showMessageDialog(null,"El jugador NEGRO se rinde. ¡GANAN LAS ROJAS!");
+                }
 	}
         
         void gameOver(String string) {
@@ -163,7 +166,7 @@ public class TableroDamasComputadora extends Damas implements ActionListener,Mou
             */
 
 		if (filaSeleccionada < 0) {
-			CajaTiempo.setLabel("SELECCIONE UNA PIEZA Y REALIZE UN MOVIMIENTO");
+			CajaTiempo.setLabel("SELECCIONE UNA PIEZA Y REALICE UN MOVIMIENTO");
 			return;
 		}
 
@@ -246,6 +249,7 @@ public class TableroDamasComputadora extends Damas implements ActionListener,Mou
 		   
                     if (movimientosLegales == null){ // SI NO HAY MOVIMIENTOS LEGALES SIGNIFICA QUE O HAY PIEZAS BLOQUEADAS EN SU TOTALIDAD O NO HAY MOVIMIENTO
 				gameOver("NEGRO NO TIENE MOVIMIENTOS, EL ROJO ES EL GANADOR");
+                                JOptionPane.showMessageDialog(null,"¡ROJAS GANAN!");
                     }
                     else if (movimientosLegales[0].esSalto()) // SINO SI EL UNICO MOVIMIENTO QUE TIENE ES UN SALTO SE LO OBLIGA A COMER .
 				
@@ -268,9 +272,10 @@ public class TableroDamasComputadora extends Damas implements ActionListener,Mou
                 else { // SE PROCEDE A REALIZAR LA MISMA SECUENCIA SINO QUE PARA LAS PIEZAS ROJAS.
 			jugadorActual = ReglasDamas.rojo;
 			movimientosLegales = tablero.getMovimientosLegales(jugadorActual);
-			if (movimientosLegales == null)
+			if (movimientosLegales == null){
 				gameOver("ROJO NO TIENE MOVIMIENTOS, LAS NEGRAS GANAN");
-			else if (movimientosLegales[0].esSalto())
+                                JOptionPane.showMessageDialog(null,"¡NEGRAS GANAN!");
+                        }else if (movimientosLegales[0].esSalto())
 				CajaTiempo.setLabel("ROJO DEBE SALTAR");
 			else
 				CajaTiempo.setLabel("ROJO DEBE MOVER");
@@ -349,8 +354,8 @@ public class TableroDamasComputadora extends Damas implements ActionListener,Mou
 					g.fillOval(4 + columna * 80, 4 + fila * 80, 74, 74);
                                           g.setColor(Color.LIGHT_GRAY);
                                         g.drawOval(4 + columna * 80, 4 + fila * 80, 74, 74);
-					g.setColor(Color.white);
-					g.drawString("*REY B*", 7 + columna * 80, 64 + fila * 78);
+					g.setColor(Color.YELLOW);
+					g.drawString("REY", 7 + columna * 80, 64 + fila * 78);
 					break;
 				case ReglasDamas.rey_negro:
 					g.setColor(Color.black);
@@ -361,7 +366,7 @@ public class TableroDamasComputadora extends Damas implements ActionListener,Mou
                                         
 					g.setColor(Color.white);
                                        
-					g.drawString("*REY N*", 7 + columna * 80, 64 + fila * 78);
+					g.drawString("*REY", 7 + columna * 80, 64 + fila * 78);
                                         
 					break;
 				}

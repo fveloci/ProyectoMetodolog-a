@@ -12,6 +12,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JOptionPane;
 import java.applet.AudioClip;
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
 
 public class Damas extends Applet implements ActionListener, MouseListener {
@@ -24,10 +27,12 @@ public class Damas extends Applet implements ActionListener, MouseListener {
     Panel PañoLimpiador;
     Button menuPrincipal;
     Button Musica;
-    public Damas (){ } // CONSTRUCTOR
+    public Damas (){ 
     
-    public static final Color MarronTabla = new Color(139,69,19);// creacion del color marronTabla
-
+    } // CONSTRUCTOR
+    
+    public static final Color MarronTabla = new Color(76,47,39);// creacion del color marronTabla
+   
     public void actionPerformed(ActionEvent eventoClick) {
         //Realiza acciones de acuerdo al boton que se clickee.
         Object src = eventoClick.getSource();
@@ -43,12 +48,13 @@ public class Damas extends Applet implements ActionListener, MouseListener {
         if (src == HumanoConComputadora) {
             LimpiarPantalla();
             ComenzarComputadora();
-            
+           
         }
         if (src == Musica){
             AudioClip musicaDeJuego;
             musicaDeJuego= java.applet.Applet.newAudioClip(getClass().getResource("/proyectodamas/Musica1.wav"));
             musicaDeJuego.play();
+           
             
             
         }
@@ -114,9 +120,10 @@ public class Damas extends Applet implements ActionListener, MouseListener {
         menuPrincipal.addActionListener(this);
         setSize(950, 720); // DAMOS ANCHO Y ALTO  A LA VENTANA DEL APPLET
         setLayout(null);  // SETEAMOS UN LAYOUT SIN DEFINIR PARA QUE INICIE
+       
         setBackground(Damas.MarronTabla);// LE DAMOS UN FONDO AL APPLET
-        Frame c = (Frame) this.getParent().getParent(); // DAMOS TITULO AL JUEGO
-        c.setTitle("DAMAS BETA 0.01");
+        //Frame c = (Frame) this.getParent().getParent(); // DAMOS TITULO AL JUEGO
+        //c.setTitle("DAMAS BETA 0.01");
         // CREACION DE TABLERO
         TableroDamas tablero = new TableroDamas(); // INICIAMOS EL OBJETO TABLERO CON TODAS SUS REGLAS
         tablero.setBounds(20, 15, 645, 645);  // PROCEDEMOS A DAR LIMITES , Y LUGAR DE POSICION DE CADA OBJETO
@@ -180,14 +187,17 @@ public class Damas extends Applet implements ActionListener, MouseListener {
 
     }
 public void ComenzarComputadora(){
-    
+        Musica= new Button ("PLAY MUSICA");
+        Musica.setBounds(700, 220, 200, 50);
+        Musica.addActionListener(this);
+        add(Musica);
         menuPrincipal = new Button("MENU PRINCIPAL");
         menuPrincipal.addActionListener(this);
         setSize(950, 720); // DAMOS ANCHO Y ALTO  A LA VENTANA DEL APPLET
         setLayout(null);  // SETEAMOS UN LAYOUT SIN DEFINIR PARA QUE INICIE
         setBackground(Damas.MarronTabla);// LE DAMOS UN FONDO AL APPLET
-        Frame c = (Frame) this.getParent().getParent(); // DAMOS TITULO AL JUEGO
-        c.setTitle("DAMAS BETA 0.01");
+//        Frame c = (Frame) this.getParent().getParent(); // DAMOS TITULO AL JUEGO
+  //      c.setTitle("DAMAS BETA 0.01");
         // CREACION DE TABLERO
         TableroDamasComputadora tablero = new TableroDamasComputadora(); // INICIAMOS EL OBJETO TABLERO CON TODAS SUS REGLAS
         tablero.setBounds(20, 15, 645, 645);  // PROCEDEMOS A DAR LIMITES , Y LUGAR DE POSICION DE CADA OBJETO

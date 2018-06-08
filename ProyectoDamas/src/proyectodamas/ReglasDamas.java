@@ -1,5 +1,4 @@
 
-
 package proyectodamas;
 import java.util.Vector;
 
@@ -23,7 +22,7 @@ public class ReglasDamas  {
     public static final int rey_negro=4;
     
     
-    private int [][]tablero;//Este arreglo representa al tablero, el cual tiene [filas][columnas].
+    public int [][]tablero;//Este arreglo representa al tablero, el cual tiene [filas][columnas].
     
     
     // CONSTRUCTOR
