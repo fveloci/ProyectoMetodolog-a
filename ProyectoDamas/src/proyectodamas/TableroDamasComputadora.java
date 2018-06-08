@@ -198,22 +198,64 @@ public class TableroDamasComputadora extends Damas implements ActionListener,Mou
 
                
         }
-      void moverNegra(){
+      public void moverNegra(){
+         boolean seEncuentraReyNegro=false;
+         
+     
           if(movimientosLegales.length == 1){
           
              
                    hacerMovimiento(movimientosLegales[0]);
                   
                    repaint();
-                   			return;
+                   return;
           }else{
-          int random =(int)(Math.random()*movimientosLegales.length);
-                   
-                   
+          int random=0;
+          for(int i=0;i<movimientosLegales.length;i++){
+              if(tablero.tablero[movimientosLegales[i].de_Fila][movimientosLegales[i].de_Columna] == ReglasDamas.rey_negro){
+               while(seEncuentraReyNegro == false){
+               random=(int)(Math.random()*movimientosLegales.length);
+               if(tablero.tablero[movimientosLegales[random].de_Fila][movimientosLegales[random].de_Columna] == ReglasDamas.rey_negro){
+                   JOptionPane.showMessageDialog(null,"Movimiento Random rey negro");
                    hacerMovimiento(movimientosLegales[random]);
                    repaint();
-                   			return;}
-      }  
+                   seEncuentraReyNegro=true;
+                   return;
+                   
+               }
+               }   
+              }
+          }
+           
+              
+              for(int i=0;i<movimientosLegales.length;i++){
+              if((movimientosLegales[i].a_Fila == 7 && tablero.tablero[movimientosLegales[i].de_Fila][movimientosLegales[i].de_Columna] == ReglasDamas.negro)){
+                  hacerMovimiento(movimientosLegales[i]);
+                 JOptionPane.showMessageDialog(null,"Mueve Rey");
+                 repaint(); 
+                 return;
+                  }
+          }
+          for(int i=0;i<movimientosLegales.length;i++){
+              
+          if((movimientosLegales[i].a_Fila+1!= ReglasDamas.rojo && movimientosLegales[i].a_Columna+1 != ReglasDamas.rojo)
+               &&(movimientosLegales[i].a_Fila+1!= ReglasDamas.rojo && movimientosLegales[i].a_Columna-1 != ReglasDamas.rojo) ){
+                  hacerMovimiento(movimientosLegales[i]);
+                   CajaTiempo.setLabel("ANALISIS COMPUTADORA");
+                  repaint();
+                   return;
+                  
+                  }
+          }    
+          
+          random =(int)(Math.random()*movimientosLegales.length);
+                   
+          hacerMovimiento(movimientosLegales[random]);
+          repaint();
+          return;
+          }
+      }
+      
       void hacerMovimiento ( MovimientoDamas mueve) {
 		
 		tablero.hacerMovimiento(mueve);   // SE PROCEDE A EJECUTAR EL METODO DE HACER MOVIMIENTOS , PASANDO COMO PARAMETRO EL OBJETO MUEVE
