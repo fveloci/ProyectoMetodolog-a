@@ -7,6 +7,7 @@ package proyectodamas;
 
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -41,7 +42,27 @@ public class NewMain {
 
    //hacer visible el marco 
     f.show(true); 
-  }
+    f.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+    f.addWindowListener(new java.awt.event.WindowAdapter() {
+    
+    // DESTRUCCION DE APPLET MEDIANTE UN
+    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+        if (JOptionPane.showConfirmDialog(f, 
+            "SEGURO DE CERRAR EL JUEGO?", "CERRAR VIDEO JUEGO", 
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+            ViedoJuego.destroy();
+            System.exit(0);
+            
+        }
     }
+});
+           
+           }
+}
+  
+
+    
+    
     
 

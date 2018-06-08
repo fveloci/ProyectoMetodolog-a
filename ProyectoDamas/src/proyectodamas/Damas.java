@@ -63,7 +63,7 @@ public class Damas extends Applet implements ActionListener, MouseListener  {
         
         musicaDeJuego= java.applet.Applet.newAudioClip(getClass().getResource("/proyectodamas/Musica1.wav"));
         musicaDeJuego.stop();
-           musicaDeJuego.play();
+        musicaDeJuego.play();
 
            
             
