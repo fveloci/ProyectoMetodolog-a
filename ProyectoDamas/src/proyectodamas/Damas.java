@@ -29,6 +29,8 @@ public class Damas extends Applet implements ActionListener, MouseListener  {
     Panel PañoLimpiador;
     Button menuPrincipal;
     Button Musica;
+    Button PararMusica;
+    
     
 
     public Damas (){ 
@@ -40,16 +42,20 @@ public class Damas extends Applet implements ActionListener, MouseListener  {
      
 
     public void actionPerformed(ActionEvent eventoClick) {
-       
+      
         //Realiza acciones de acuerdo al boton que se clickee.
         Object src = eventoClick.getSource();
+        boolean Habilitar=false;
         if (src == HumanoContraHumano) { // SI SE CLICKEA EN HUMANO CONTRA HUMANO LIMPIO LA PANTALLA DE UNA MANERA POCO ORTODOXA
             LimpiarPantalla();
             Comenzar();
 
         }
         if (src == menuPrincipal) {
+           
             LimpiarPantalla();
+            
+            
 
         }
         if (src == HumanoConComputadora) {
@@ -58,18 +64,32 @@ public class Damas extends Applet implements ActionListener, MouseListener  {
            
         }
         if (src == Musica){
-
-           
-        
-        musicaDeJuego= java.applet.Applet.newAudioClip(getClass().getResource("/proyectodamas/Musica1.wav"));
-        musicaDeJuego.stop();
-        
-        musicaDeJuego.play();
-
-           
-            
-            
+         musicaDeJuego= java.applet.Applet.newAudioClip(getClass().getResource("/proyectodamas/Musica1.wav"));  
+         musicaDeJuego.play();  
+         Musica.setEnabled(Habilitar);
+         
         }
+        if (src == PararMusica){
+        
+        
+        musicaDeJuego.stop();
+        Musica.setEnabled(true);
+        
+        
+        }
+        if (src == menuPrincipal){
+           PañoLimpiador = new Panel();
+           PañoLimpiador.setBounds(0, 0, 950, 720);
+           PañoLimpiador.setForeground(MarronTabla);
+           add(PañoLimpiador);
+           LimpiarPantalla();
+           
+           removeAll();
+           start();
+           
+        
+        }
+            
             
 
     }
@@ -124,10 +144,15 @@ public class Damas extends Applet implements ActionListener, MouseListener  {
     }
 
     public void Comenzar() {
-        Musica= new Button ("PLAY MUSICA");
-        Musica.setBounds(700, 220, 200, 50);
+         setFont(new Font("Arial", Font.TRUETYPE_FONT, 16));
+         Musica= new Button ("PLAY");
+        Musica.setBounds(700, 220, 60, 50);
         Musica.addActionListener(this);
         add(Musica);
+        PararMusica= new Button ("STOP");
+        PararMusica.setBounds(780, 220, 60, 50);
+        PararMusica.addActionListener(this);
+        add(PararMusica);
         menuPrincipal = new Button("MENU PRINCIPAL");
         menuPrincipal.addActionListener(this);
         setSize(950, 720); // DAMOS ANCHO Y ALTO  A LA VENTANA DEL APPLET
@@ -199,10 +224,15 @@ public class Damas extends Applet implements ActionListener, MouseListener  {
 
     }
 public void ComenzarComputadora(){
-        Musica= new Button ("PLAY MUSICA");
-        Musica.setBounds(700, 220, 200, 50);
+     setFont(new Font("Arial", Font.TRUETYPE_FONT, 16));
+       Musica= new Button ("PLAY");
+        Musica.setBounds(700, 220, 60, 50);
         Musica.addActionListener(this);
         add(Musica);
+        PararMusica= new Button ("STOP");
+        PararMusica.setBounds(780, 220, 60, 50);
+        PararMusica.addActionListener(this);
+        add(PararMusica);
         menuPrincipal = new Button("MENU PRINCIPAL");
         menuPrincipal.addActionListener(this);
         setSize(950, 720); // DAMOS ANCHO Y ALTO  A LA VENTANA DEL APPLET

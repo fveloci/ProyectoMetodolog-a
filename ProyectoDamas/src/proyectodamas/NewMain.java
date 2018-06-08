@@ -6,6 +6,8 @@
 package proyectodamas;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -13,7 +15,7 @@ import javax.swing.JOptionPane;
  *
  * @author Alumno
  */
-public class NewMain {
+public class NewMain  {
 
     /**
      * @param args the command line arguments
@@ -57,9 +59,16 @@ public class NewMain {
         }
     }
 });
-           
-           }
+    
+    
+    
+    
+    }
+  
 }
+
+        
+
   
 
     
