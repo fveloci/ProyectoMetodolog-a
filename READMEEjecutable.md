@@ -2,10 +2,10 @@
 # ProyectoMetodologia - Damas Inglesas Ejecutable Readme
 VideoJuego: el siguiente video Juego tiene codigo realizado por los usuarios :
 
-*Franco Veloci: fveloci@hotmail.com
-*Malagoli Luciano: tsagames99@hotmail.com
-*Vergara Nahuel: maurovergara1281@gmail.com
-*Vergara Mauro: nahuelvergara1597@gmail.com
+* Franco Veloci: fveloci@hotmail.com
+* Malagoli Luciano: tsagames99@hotmail.com
+* Vergara Nahuel: maurovergara1281@gmail.com
+* Vergara Mauro: nahuelvergara1597@gmail.com
 
 Version : Sin version.
 
