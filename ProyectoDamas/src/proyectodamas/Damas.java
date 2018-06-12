@@ -66,7 +66,6 @@ public class Damas extends Applet implements ActionListener, MouseListener  {
         }
         if (src == PararMusica){
         
-        
         musicaDeJuego.stop();
         Musica.setEnabled(true);
         
@@ -78,11 +77,16 @@ public class Damas extends Applet implements ActionListener, MouseListener  {
            PañoLimpiador.setForeground(MarronTabla);
            add(PañoLimpiador);
            LimpiarPantalla();
-           musicaDeJuego.play();
+           if (Reproduciendo == true){
            musicaDeJuego.stop();
+           }
+           //modificacion de boton Reproducir que cometia bugs
            
+          
+          
            removeAll();
            start();
+           
            
         
         }

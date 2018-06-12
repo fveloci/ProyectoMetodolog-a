@@ -218,7 +218,7 @@ public class TableroDamasComputadora extends Damas implements ActionListener,Mou
       public void moverNegra(){
          boolean seEncuentraReyNegro=false;
          
-     
+         
           if(movimientosLegales.length == 1){
           
              
@@ -226,10 +226,15 @@ public class TableroDamasComputadora extends Damas implements ActionListener,Mou
                   
                    repaint();
                    return;
-          }else{
-          int random=0;
-          for(int i=0;i<movimientosLegales.length;i++){
+          }
+          else {
+          int random;
+          int randomSeleccion = (int)(Math.random()*10);
+              if (randomSeleccion <5){
+            
+                for(int i=0;i<movimientosLegales.length;i++){
               if(tablero.tablero[movimientosLegales[i].de_Fila][movimientosLegales[i].de_Columna] == ReglasDamas.rey_negro){
+               
                while(seEncuentraReyNegro == false){
                random=(int)(Math.random()*movimientosLegales.length);
                if(tablero.tablero[movimientosLegales[random].de_Fila][movimientosLegales[random].de_Columna] == ReglasDamas.rey_negro){
@@ -237,22 +242,23 @@ public class TableroDamasComputadora extends Damas implements ActionListener,Mou
                    hacerMovimiento(movimientosLegales[random]);
                    repaint();
                    seEncuentraReyNegro=true;
-                   return;
                    
-               }
-               }   
-              }
+                   return;
+                  
+                        }
+                     }   
+                    }
+                }
           }
-           
-              
-              for(int i=0;i<movimientosLegales.length;i++){
-              if((movimientosLegales[i].a_Fila == 7 && tablero.tablero[movimientosLegales[i].de_Fila][movimientosLegales[i].de_Columna] == ReglasDamas.negro)){
+           for(int i=0;i<movimientosLegales.length;i++){
+             if((movimientosLegales[i].a_Fila == 7 && tablero.tablero[movimientosLegales[i].de_Fila][movimientosLegales[i].de_Columna] == ReglasDamas.negro)){
                   hacerMovimiento(movimientosLegales[i]);
                  
                  repaint(); 
                  return;
                   }
           }
+             
           for(int i=0;i<movimientosLegales.length;i++){
               
           if((movimientosLegales[i].a_Fila+1!= ReglasDamas.rojo && movimientosLegales[i].a_Columna+1 != ReglasDamas.rojo)
@@ -263,10 +269,12 @@ public class TableroDamasComputadora extends Damas implements ActionListener,Mou
                    return;
                   
                   }
-          }    
+          }
+              
+         
+              
           
           random =(int)(Math.random()*movimientosLegales.length);
-                   
           hacerMovimiento(movimientosLegales[random]);
           repaint();
           return;
@@ -419,7 +427,7 @@ public class TableroDamasComputadora extends Damas implements ActionListener,Mou
                                           g.setColor(Color.LIGHT_GRAY);
                                         g.drawOval(4 + columna * 80, 4 + fila * 80, 74, 74);
 					g.setColor(Color.YELLOW);
-					g.drawString("REY ROJO", 7 + columna * 80, 64 + fila * 78);
+					g.drawString("DAMAS", 7 + columna * 80, 64 + fila * 78);
 					break;
 				case ReglasDamas.rey_negro:
 					g.setColor(Color.black);
@@ -430,7 +438,7 @@ public class TableroDamasComputadora extends Damas implements ActionListener,Mou
                                         
 					g.setColor(Color.white);
                                        
-					g.drawString("REY NEGRO", 7 + columna * 80, 64 + fila * 78);
+					g.drawString("DAMAS", 7 + columna * 80, 64 + fila * 78);
                                         
 					break;
 				}
