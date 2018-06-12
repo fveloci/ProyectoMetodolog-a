@@ -1,4 +1,4 @@
-<Damas Inglesas Ejecutable>
+
 # ProyectoMetodologia - Damas Inglesas Ejecutable Readme
 VideoJuego: el siguiente video Juego tiene codigo realizado por los usuarios :
 
