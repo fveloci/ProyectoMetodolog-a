@@ -56,9 +56,10 @@ public class TableroDamasComputadora extends Damas implements ActionListener,Mou
 		botonNuevoJuego.addActionListener(this);
 		
 		tablero = new ReglasDamas();
-                reglasDelJuego = new Button ("Reglas De Juego");
+                reglasDelJuego = new Button ("REGLAS");
                 reglasDelJuego.addActionListener(this);
-                reglasDeMovimientos= new Button ("Reglas De Movimientos");
+                reglasDeMovimientos= new Button ("PREMISA DE DAMAS");
+                reglasDeMovimientos.addActionListener(this);
                 panelMensajes = new Panel ();
                 DentroPanelMensajes= new Panel ();
                 mensaje= new Label("MENSAJES", Label.RIGHT);
@@ -82,10 +83,26 @@ public class TableroDamasComputadora extends Damas implements ActionListener,Mou
                 rendirse();
             }
                 if(src == reglasDelJuego){
-                    JOptionPane.showMessageDialog(null, "LAS REGLAS SON: \n 1- HOLA \n 2-ETC");
+                    JOptionPane.showMessageDialog(null, "Cada jugador dispone de 12 piezas de un mismo color (uno blanco y otro negro) que al principio de la partida se colocan  \n" +
+"en las casillas negras de las tres filas más próximas a él. El objetivo del juego de damas es capturar las fichas del oponente \n" +
+"o acorralarlas para que los únicos movimientos que puedan realizar sean los que lleven a su captura.\n" +
+"Si un peón consigue llegar hasta su última línea (primera fila del rival), se convierte automáticamente en Dama. \n" +
+" Para distinguirlas del resto de piezas se suele colocar otra pieza sobre esta. La dama puede moverse en diagonal hacia delante y\n" +
+"hacia atrás todas las casillas que desee en un solo movimiento, siempre y cuando no salte por encima de ninguna de sus propias fichas. \n" +
+" Si al finalizar una captura, un peón se convierte en dama, esta no puede seguir capturando piezas, y deberá esperar otro turno para hacerlo. \n" +
+"El peón captura en diagonal, saltando por encima de la ficha contraria que va a ser capturada, cayendo sobre la casilla inmediatamente detrás  \n" +
+" de ésta (en el sentido de la captura), y siempre que el que captura esté en una casilla adyacente al capturado, y que la casilla inmediatamente \n" +
+" detrás de éste esté libre para que acabe el movimiento.\n" +
+"La captura con dama es igual que con peón, aunque puede capturar tanto hacia adelante como hacia atrás. La captura en todos los casos es obligatoria,  \n" +
+" es decir, si al llegar el turno de un jugador, una o más de sus piezas estuvieran en situación de realizar capturas, será obligatorio mover ésta o una de   \n" +
+"estas piezas y realizar tal captura, no pudiendo optar por mover una pieza que no esté en situación de realizar captura. Tanto con dama como con peón,   \n" +
+"si tras una captura, la pieza en cuestión estuviera en situación de realizar una nueva captura, esta se llevará a cabo de forma encadenada, y así sucesivamente   \n" +
+"mientras se diera tal circunstancia de poder seguir capturando. Su movimiento y su turno terminan cuando ya no hay más piezas para capturar.");
                 }
                     if(src == reglasDeMovimientos){
-                        JOptionPane.showMessageDialog(null, "REGLAS DE MOVIMIENTO : AWWSDQWDQ");
+                        JOptionPane.showMessageDialog(null, "Es un juego de mesa para dos contrincantes. El juego consiste en mover las piezas en diagonal \n"
+                                + " a través de los cuadros negros o blancos de un tablero de 64 o 100 cuadros con la intención de capturar (comer) las piezas del \n"
+                                + " jugador contrario pasando por encima de dichas piezas. ");
                     }
                 if(src == menuPrincipal){
                          
@@ -216,7 +233,7 @@ public class TableroDamasComputadora extends Damas implements ActionListener,Mou
                while(seEncuentraReyNegro == false){
                random=(int)(Math.random()*movimientosLegales.length);
                if(tablero.tablero[movimientosLegales[random].de_Fila][movimientosLegales[random].de_Columna] == ReglasDamas.rey_negro){
-                   JOptionPane.showMessageDialog(null,"Movimiento Random rey negro");
+                   
                    hacerMovimiento(movimientosLegales[random]);
                    repaint();
                    seEncuentraReyNegro=true;
@@ -231,7 +248,7 @@ public class TableroDamasComputadora extends Damas implements ActionListener,Mou
               for(int i=0;i<movimientosLegales.length;i++){
               if((movimientosLegales[i].a_Fila == 7 && tablero.tablero[movimientosLegales[i].de_Fila][movimientosLegales[i].de_Columna] == ReglasDamas.negro)){
                   hacerMovimiento(movimientosLegales[i]);
-                 JOptionPane.showMessageDialog(null,"Mueve Rey");
+                 
                  repaint(); 
                  return;
                   }
@@ -402,7 +419,7 @@ public class TableroDamasComputadora extends Damas implements ActionListener,Mou
                                           g.setColor(Color.LIGHT_GRAY);
                                         g.drawOval(4 + columna * 80, 4 + fila * 80, 74, 74);
 					g.setColor(Color.YELLOW);
-					g.drawString("REY", 7 + columna * 80, 64 + fila * 78);
+					g.drawString("REY ROJO", 7 + columna * 80, 64 + fila * 78);
 					break;
 				case ReglasDamas.rey_negro:
 					g.setColor(Color.black);
@@ -413,7 +430,7 @@ public class TableroDamasComputadora extends Damas implements ActionListener,Mou
                                         
 					g.setColor(Color.white);
                                        
-					g.drawString("*REY", 7 + columna * 80, 64 + fila * 78);
+					g.drawString("REY NEGRO", 7 + columna * 80, 64 + fila * 78);
                                         
 					break;
 				}

@@ -3,20 +3,12 @@ import java.applet.*;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Frame;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import javax.swing.JOptionPane;
 import java.applet.AudioClip;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 
 
 public class Damas extends Applet implements ActionListener, MouseListener  {
@@ -30,7 +22,7 @@ public class Damas extends Applet implements ActionListener, MouseListener  {
     Button menuPrincipal;
     Button Musica;
     Button PararMusica;
-    
+  
     
 
     public Damas (){ 
@@ -46,6 +38,7 @@ public class Damas extends Applet implements ActionListener, MouseListener  {
         //Realiza acciones de acuerdo al boton que se clickee.
         Object src = eventoClick.getSource();
         boolean Habilitar=false;
+        boolean Reproduciendo=false;
         if (src == HumanoContraHumano) { // SI SE CLICKEA EN HUMANO CONTRA HUMANO LIMPIO LA PANTALLA DE UNA MANERA POCO ORTODOXA
             LimpiarPantalla();
             Comenzar();
@@ -63,11 +56,13 @@ public class Damas extends Applet implements ActionListener, MouseListener  {
             ComenzarComputadora();
            
         }
+        
+        
         if (src == Musica){
          musicaDeJuego= java.applet.Applet.newAudioClip(getClass().getResource("/proyectodamas/Musica1.wav"));  
          musicaDeJuego.play();  
          Musica.setEnabled(Habilitar);
-         
+         Reproduciendo=true;
         }
         if (src == PararMusica){
         
@@ -83,6 +78,8 @@ public class Damas extends Applet implements ActionListener, MouseListener  {
            PañoLimpiador.setForeground(MarronTabla);
            add(PañoLimpiador);
            LimpiarPantalla();
+           musicaDeJuego.play();
+           musicaDeJuego.stop();
            
            removeAll();
            start();
@@ -102,6 +99,7 @@ public class Damas extends Applet implements ActionListener, MouseListener  {
 "                    ");
         HumanoContraHumano = new Button(" ║1VS 1║");
         HumanoConComputadora = new Button(" ║1 VS PC║");
+        
         PanelDeGrafica = new Panel();
         SuperiorPanel = new Panel();
         // CREACION BOTONES INICIAR JUEGO
@@ -117,7 +115,11 @@ public class Damas extends Applet implements ActionListener, MouseListener  {
         HumanoContraHumano.addActionListener(this);
         add(HumanoContraHumano);
         //FIN BOTON HUMANO CONTRA HUMANO
-        // BOTON HUMANOCONTRA COMPUTADORA
+      
+      
+        
+        
+         // BOTON HUMANOCONTRA COMPUTADORA
         HumanoConComputadora.setBackground(Color.DARK_GRAY);
         HumanoConComputadora.setForeground(Color.WHITE);
         HumanoConComputadora.setBounds(450, 250, 250, 250);
@@ -300,6 +302,7 @@ public void ComenzarComputadora(){
         tablero.mensaje.setFont(new Font("Serif", Font.ROMAN_BASELINE, 32));
         add(tablero.mensaje);
 }
+
     public void mouseReleased(MouseEvent evt) {
     }
 
@@ -322,6 +325,7 @@ public void ComenzarComputadora(){
         remove(HumanoConComputadora);
         remove(SuperiorPanel);
         remove(PanelDeGrafica);
+     
         setFont(new Font("Arial", Font.TRUETYPE_FONT, 16));
     }
 
