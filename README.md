@@ -12,8 +12,8 @@ Autores: El repositorio es mantenido por multiples miembros, aportes y demas ent
 A continuacion se listan los contribuidores:
   * Franco Veloci: fveloci@hotmail.com  
   * Malagoli Luciano:  tsagames99@hotmail.com
-  * Vergara Nahuel: 
-  * Vergara Mauro:
+  * Vergara Nahuel:  maurovergara1281@gmail.com
+  * Vergara Mauro: nahuelvergara1597@gmail.com
 
 Requisitos:
 
