@@ -9,13 +9,13 @@ VideoJuego: el siguiente video Juego tiene codigo realizado por los usuarios :
 
 Version : Sin version.
 
-Requisitos >
+Requisitos :
 
-*Usuario Linux: Poseer instalado en su maquina java JRE , si no tiene instalado proceda a los siguientes paso , si posee 
+Usuario Linux: Poseer instalado en su maquina java JRE , si no tiene instalado proceda a los siguientes paso , si posee 
 JRE Continue al siguiente item:
-	1-  Abrir terminal.
-	2- sudo apt-get update
-	3- sudo apt-get install default-jre
+	1- Abrir terminal.
+	2-sudo apt-get update
+	3-  sudo apt-get install default-jre
 	JDK Contiene JRE si se quiere instalar es :
 	jdk de oracle
 	4- sudo add-apt-repository ppa:webupd8team/java
