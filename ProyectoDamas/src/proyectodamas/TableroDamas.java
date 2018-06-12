@@ -336,13 +336,13 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
 					g.setColor(Color.red);
 					g.fillOval(4 + columna * 80, 4 + fila * 80, 74, 74);
 					g.setColor(Color.white);
-					g.drawString("REY B", 7 + columna * 80, 64 + fila * 78);
+					g.drawString("DAMAS", 7 + columna * 80, 64 + fila * 78);
 					break;
 				case ReglasDamas.rey_negro:
 					g.setColor(Color.black);
 					g.fillOval(4 + columna * 80, 4 + fila * 80, 74, 74);
 					g.setColor(Color.white);
-					g.drawString("REY N", 7 + columna * 80, 64 + fila * 78);
+					g.drawString("DAMAS", 7 + columna * 80, 64 + fila * 78);
                                         
 					break;
 				}
