@@ -80,6 +80,7 @@ public class Damas extends Applet implements ActionListener, MouseListener  {
            if (Reproduciendo == true){
            musicaDeJuego.stop();
            }
+           //modificacion de boton Reproducir que cometia bugs
            
           
           
