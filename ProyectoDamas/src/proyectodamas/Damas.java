@@ -28,8 +28,8 @@ public class Damas extends Applet implements ActionListener, MouseListener  {
     public Damas (){ 
     
     } // CONSTRUCTOR
-    AudioClip musicaDeJuego;
     
+    AudioClip  musicaDeJuego= java.applet.Applet.newAudioClip(getClass().getResource("/proyectodamas/Musica1.wav"));  
     public static final Color MarronTabla = new Color(76,47,39);// creacion del color marronTabla
      
 
@@ -59,8 +59,8 @@ public class Damas extends Applet implements ActionListener, MouseListener  {
         
         
         if (src == Musica){
-         musicaDeJuego= java.applet.Applet.newAudioClip(getClass().getResource("/proyectodamas/Musica1.wav"));  
-         musicaDeJuego.play();  
+         
+         musicaDeJuego.loop();  
          Musica.setEnabled(Habilitar);
          Reproduciendo=true;
         }
@@ -77,14 +77,11 @@ public class Damas extends Applet implements ActionListener, MouseListener  {
            PañoLimpiador.setForeground(MarronTabla);
            add(PañoLimpiador);
            LimpiarPantalla();
-           if (Reproduciendo == true){
-           musicaDeJuego.stop();
-           }
            //modificacion de boton Reproducir que cometia bugs
-           
-          
-          
+           musicaDeJuego.stop();
            removeAll();
+           
+           
            start();
            
            
@@ -96,7 +93,7 @@ public class Damas extends Applet implements ActionListener, MouseListener  {
     }
 
     public void start() {  // con el metodo INIT sobreescrito desde applet , Inicializamos la ventana, que contendra el awt del juego. 
-
+        
         PañoLimpiador = new Panel();
         botonIniciarJuego = new Button(" \n" +
 "                      DAMAS INGLESAS  \n" +

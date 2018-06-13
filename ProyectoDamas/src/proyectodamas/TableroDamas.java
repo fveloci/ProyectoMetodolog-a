@@ -66,7 +66,7 @@ public class TableroDamas extends Damas implements ActionListener, MouseListener
                 DentroPanelMensajes= new Panel ();
                 mensaje= new Label("MENSAJES", Label.RIGHT);
                 add(mensaje);
-                CajaTiempo= new Button ("TIEMPO DE JUEGO :");
+                CajaTiempo= new Button ("MENSAJES:");
                 
                 
                 
